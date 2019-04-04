@@ -27,12 +27,10 @@ componentDidMount(){
   }
 }
 
-
   render() {
     return (
         <div className="App">
           <NavBar />
-          <button ><a href='http://localhost:3000/api/v1/login'> Sing in </a></button>
           <Locations />
           <PlaylistIndex />
           <Player />
