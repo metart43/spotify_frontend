@@ -19,7 +19,8 @@ const authReducer = (state = {}, action) => {
 }
 
 const rootReducer = combineReducers({
-  playlists: playlistsReducer
+  playlists: playlistsReducer,
+  token: authReducer
 });
 
 export default rootReducer;
