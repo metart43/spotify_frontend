@@ -2,7 +2,6 @@ import React from 'react';
 import PlaylistCard from '../components/PlaylistCard'
 import {connect} from 'react-redux'
 import {fetchingPlaylist} from '../redux/actions'
-import * as SpotifyWebApi from 'spotify-web-api-js';
 
 
 class PlaylistIndex extends React.Component {

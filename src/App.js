@@ -5,6 +5,7 @@ import NavBar from '../src/components/NavBar'
 import Locations from '../src/components/Locations'
 import PlaylistIndex from '../src/containers/PlaylistIndex'
 import Player from '../src/containers/Player'
+import PlaylistContainer from '../src/containers/PlaylistContainer'
 import {connect} from 'react-redux'
 import {withRouter} from 'react-router-dom'
 import {accessingToken, fetchingPlaylist} from '../src/redux/actions'
@@ -32,6 +33,7 @@ componentDidMount(){
         <div className="App">
           <NavBar />
           <Locations />
+          <PlaylistContainer />
           <PlaylistIndex />
           <Player />
         </div>
@@ -41,6 +43,7 @@ componentDidMount(){
 
 const mapStateToProps = state => {
   return {
+    playlist: state.playlist
   }
 }
 

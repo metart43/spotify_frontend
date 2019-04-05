@@ -9,6 +9,15 @@ const playlistsReducer = (state = [], action) => {
   }
 }
 
+const selectPlaylistReducer = (state = null, action) => {
+  switch (action.type) {
+    case "SELECT_PLAYLIST":
+    return action.playlist
+    default:
+    return state
+  }
+}
+
 const authReducer = (state = {}, action) => {
   switch(action.type) {
     case "ACCESSING_TOKEN":
@@ -18,9 +27,20 @@ const authReducer = (state = {}, action) => {
   }
 }
 
+const songReducer = (state = null, action) => {
+  switch (action.type) {
+    case "FETCHED_SONGS":
+    return action.songs
+    default:
+    return state
+  }
+}
+
 const rootReducer = combineReducers({
   playlists: playlistsReducer,
-  token: authReducer
+  token: authReducer,
+  playlist: selectPlaylistReducer,
+  songs: songReducer
 });
 
 export default rootReducer;
