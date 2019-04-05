@@ -1,14 +1,30 @@
 import React from 'react';
 import PlaylistCard from '../components/PlaylistCard'
+import {connect} from 'react-redux'
+import {fetchingPlaylist} from '../redux/actions'
+import * as SpotifyWebApi from 'spotify-web-api-js';
+
 
 class PlaylistIndex extends React.Component {
+
   render(){
     return (
       <div>
-        <PlaylistCard />
+        {this.props.playlists.map((pl => <PlaylistCard key={pl.id} pl={pl}/>))}
       </div>
   )
   }
 }
 
-export default PlaylistIndex
+const mapStateToProps = state => ({
+  token: state.token,
+  playlists: state.playlists
+})
+
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PlaylistIndex)

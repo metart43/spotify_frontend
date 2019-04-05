@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 const playlistsReducer = (state = [], action) => {
   switch(action.type) {
     case "FETCHED_PLAYLISTS":
-    return action.playlists
+    return action.playlists.items
     default:
     return state
   }
