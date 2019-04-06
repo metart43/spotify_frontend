@@ -5,9 +5,9 @@ import SongItem from '../components/SongItem'
 class SongsList extends React.Component {
   render(){
     return(
-      <div>
+      <ul>
           {this.props.songs.items.map(song => <SongItem song={song}/>)}
-      </div>
+      </ul>
     )
   }
 }

@@ -2,9 +2,9 @@ import React from 'react';
 
 const SongItem = (props) => {
   return(
-    <div>
-    Name: {props.song.track.name}
-    </div>
+    <li>
+    {props.song.track.name}
+  </li>
   )
 }
 
