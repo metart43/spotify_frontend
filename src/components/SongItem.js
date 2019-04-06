@@ -2,9 +2,9 @@ import React from 'react';
 // import {connect} from 'react-redux'
 
 const SongItem = (props) => {
-  debugger
   return(
     <div>
+    Name: {props.song.track.name}
     </div>
   )
 }

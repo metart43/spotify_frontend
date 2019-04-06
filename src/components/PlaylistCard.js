@@ -9,8 +9,7 @@ const PlaylistCard = (props) => {
     Name: {props.pl.name}
     <img className='image' alt='playlist' src={props.pl.images[0].url} />
     <button onClick={
-      () => props.selectPlaylist(props.pl),
-      () => props.fetchingSongs(props.token, props.pl.id)
+      () => {props.selectPlaylist(props.pl); props.fetchingSongs(props.token, props.pl.id);}
     }>Play me</button>
     </div>
   )

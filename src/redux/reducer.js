@@ -10,6 +10,7 @@ const playlistsReducer = (state = [], action) => {
 }
 
 const selectPlaylistReducer = (state = null, action) => {
+  debugger
   switch (action.type) {
     case "SELECT_PLAYLIST":
     return action.playlist

@@ -4,7 +4,9 @@ import PlaylistShowCard from '../components/PlaylistShowCard'
 import SongsList from './SongsList'
 
 class PlaylistContainer extends React.Component {
+
   render(){
+    // debugger
     return(
       <div>
         {this.props.playlist ? <PlaylistShowCard/> : null}

@@ -7,6 +7,11 @@ function fetchedPLaylist(playlists){
    return { type: "FETCHED_PLAYLISTS", playlists}
 }
 
+function selectPlaylist(playlist){
+  debugger
+  return {type: 'SELECT_PLAYLIST', playlist}
+}
+
 function accessingToken(token){
   return {type: "ACCESSING_TOKEN", token}
 }
@@ -40,13 +45,5 @@ function fetchingSongs(token, playlistId) {
   }
 }
 
-function selectPlaylist(playlist){
-  return {type: 'SELECT_PLAYLIST', playlist}
-}
-
-// getPlaylistTracks = function(playlistId, options, callback) {
-//     var requestData = {
-//       url: _baseUri + '/playlists/' + playlistId + '/tracks'
-//     };
 
 export {accessingToken, fetchingPlaylist, selectPlaylist, fetchingSongs}
