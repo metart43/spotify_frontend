@@ -3,15 +3,14 @@ import {selectPlaylist, fetchingSongs} from '../redux/actions'
 import {connect} from 'react-redux'
 
 const PlaylistCard = (props) => {
-  console.log(props);
   return (
-    <div>
-    Name: {props.pl.name}
-    <img className='image' alt='playlist' src={props.pl.images[0].url} />
-    <button onClick={
+    <React.Fragment>
+    <p>{props.pl.name}</p>
+    <p><img className='image' alt='playlist' src={props.pl.images[0].url} /></p>
+    <p><button onClick={
       () => {props.selectPlaylist(props.pl); props.fetchingSongs(props.token, props.pl.id);}
-    }>Play me</button>
-    </div>
+    }>Play me</button></p>
+    </React.Fragment>
   )
 }
 
