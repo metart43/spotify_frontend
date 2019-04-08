@@ -20,7 +20,6 @@ function fetchedSongs(songs){
 
 function getCurrentSong(song) {
   return {type:"CURRENT_SONG", song}
-
 }
 
 function fetchingPlaylist(token) {
@@ -50,11 +49,12 @@ function fetchingSongs(token, playlistId) {
 }
 
 function currentSong(token){
+  debugger
   spotifyApi.setAccessToken(token)
   return (dispatch) => {
     spotifyApi.getMyCurrentPlayingTrack()
   .then(function(song) {
-    console.log('User song', song)
+    console.log('Current song', song)
     dispatch(getCurrentSong(song))
 }, function(err) {
   console.error(err);
@@ -63,16 +63,18 @@ function currentSong(token){
 }
 
 
-function playingTrack(song, token){
+
+function playingTrack(token, song){
+  debugger
   return (dispatch) => {
-    fetch('https://api.spotify.com/v1/me/player/play',{
+    fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
       method: 'PUT',
       headers: {"Accept" : "application/json",
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`},
-      body: JSON.stringify({"uris": [`${song.uri}`]})
+      body: JSON.stringify({"uris": [`${song.track.uri}`]})
     })
   }
 }
 
-export {accessingToken, fetchingPlaylist, selectPlaylist, fetchingSongs, playingTrack, currentSong}
+export {accessingToken, fetchingPlaylist, selectPlaylist, fetchingSongs, playingTrack, getCurrentSong}

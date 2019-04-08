@@ -31,10 +31,17 @@ const songReducer = (state = null, action) => {
   switch (action.type) {
     case "FETCHED_SONGS":
     return action.songs
-    case "CURRENT_SONG":
-    return action.song
     default:
     return state
+  }
+}
+
+const playerReducer = (state = null, action) => {
+  switch (action.type) {
+  case "CURRENT_SONG":
+  return action.song
+  default:
+  return state
   }
 }
 
@@ -43,7 +50,7 @@ const rootReducer = combineReducers({
   token: authReducer,
   playlist: selectPlaylistReducer,
   songs: songReducer,
-  currentSong: songReducer
+  currentSong: playerReducer
 });
 
 export default rootReducer;

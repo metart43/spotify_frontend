@@ -7,7 +7,7 @@ import PlaylistContainer from '../src/containers/PlaylistContainer'
 import SpotifyPlayer from '../src/containers/SpotifyPlayer'
 import {connect} from 'react-redux'
 // import {withRouter} from 'react-router-dom'
-import {accessingToken, fetchingPlaylist, currentSong} from '../src/redux/actions'
+import {accessingToken, fetchingPlaylist} from '../src/redux/actions'
 
 
 class App extends Component {
@@ -44,15 +44,13 @@ componentDidMount(){
 const mapStateToProps = state => {
   return {
     playlist: state.playlist,
-    currentSong: state.currentSong
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     accessingToken: (token) => dispatch(accessingToken(token)),
-    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token)),
-    currentSong: (token) => dispatch(currentSong(token))
+    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token))
   }
 }
 

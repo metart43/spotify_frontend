@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import {Button} from 'antd'
 
 const PlaylistCard = (props) => {
+  //redo the playlist and send the playlist to a spotify player
   return (
     <React.Fragment>
     <p>{props.pl.name}</p>
