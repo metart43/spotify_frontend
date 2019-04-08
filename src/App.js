@@ -1,14 +1,13 @@
 import React, { Component } from 'react';
 import './App.css';
-import SpotifyWebApi from 'spotify-web-api-js'
 import NavBar from '../src/components/NavBar'
 import Locations from '../src/components/Locations'
 import PlaylistIndex from '../src/containers/PlaylistIndex'
-import Player from '../src/containers/Player'
 import PlaylistContainer from '../src/containers/PlaylistContainer'
+import SpotifyPlayer from '../src/containers/SpotifyPlayer'
 import {connect} from 'react-redux'
-import {withRouter} from 'react-router-dom'
-import {accessingToken, fetchingPlaylist} from '../src/redux/actions'
+// import {withRouter} from 'react-router-dom'
+import {accessingToken, fetchingPlaylist, currentSong} from '../src/redux/actions'
 
 
 class App extends Component {
@@ -36,7 +35,7 @@ componentDidMount(){
           <Locations />
           <PlaylistContainer />
           <PlaylistIndex />
-          <Player />
+          <SpotifyPlayer />
         </div>
     );
   }
@@ -44,14 +43,16 @@ componentDidMount(){
 
 const mapStateToProps = state => {
   return {
-    playlist: state.playlist
+    playlist: state.playlist,
+    currentSong: state.currentSong
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     accessingToken: (token) => dispatch(accessingToken(token)),
-    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token))
+    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token)),
+    currentSong: (token) => dispatch(currentSong(token))
   }
 }
 

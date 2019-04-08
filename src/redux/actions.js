@@ -8,7 +8,6 @@ function fetchedPLaylist(playlists){
 }
 
 function selectPlaylist(playlist){
-  debugger
   return {type: 'SELECT_PLAYLIST', playlist}
 }
 
@@ -17,6 +16,11 @@ function accessingToken(token){
 }
 function fetchedSongs(songs){
   return {type:"FETCHED_SONGS", songs}
+}
+
+function getCurrentSong(song) {
+  return {type:"CURRENT_SONG", song}
+
 }
 
 function fetchingPlaylist(token) {
@@ -33,7 +37,7 @@ function fetchingPlaylist(token) {
 }
 
 function fetchingSongs(token, playlistId) {
-  spotifyApi.setAccessToken(token, playlistId)
+  spotifyApi.setAccessToken(token)
   return (dispatch) => {
     spotifyApi.getPlaylistTracks(playlistId)
   .then(function(songs) {
@@ -45,5 +49,30 @@ function fetchingSongs(token, playlistId) {
   }
 }
 
+function currentSong(token){
+  spotifyApi.setAccessToken(token)
+  return (dispatch) => {
+    spotifyApi.getMyCurrentPlayingTrack()
+  .then(function(song) {
+    console.log('User song', song)
+    dispatch(getCurrentSong(song))
+}, function(err) {
+  console.error(err);
+    })
+  }
+}
 
-export {accessingToken, fetchingPlaylist, selectPlaylist, fetchingSongs}
+
+function playingTrack(song, token){
+  return (dispatch) => {
+    fetch('https://api.spotify.com/v1/me/player/play',{
+      method: 'PUT',
+      headers: {"Accept" : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`},
+      body: JSON.stringify({"uris": [`${song.uri}`]})
+    })
+  }
+}
+
+export {accessingToken, fetchingPlaylist, selectPlaylist, fetchingSongs, playingTrack, currentSong}

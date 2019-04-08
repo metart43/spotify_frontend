@@ -2,11 +2,10 @@ import React from 'react';
 import {connect} from 'react-redux'
 
 const PlaylistShowCard = (props) => {
-  debugger
   return (
     <React.Fragment>
     <p><strong>{props.playlist.name}</strong></p>
-    <p><img className='image' src={props.playlist.images[0].url} /></p>
+    <p><img className='image' alt='PlaylistShowCard' src={props.playlist.images[0].url} /></p>
     </React.Fragment>
   )
 }

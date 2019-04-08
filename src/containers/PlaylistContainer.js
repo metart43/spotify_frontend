@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import PlaylistShowCard from '../components/PlaylistShowCard'
 import SongsList from './SongsList'
-import {Card, Row, Col} from 'antd'
+import {Row, Col} from 'antd'
 
 class PlaylistContainer extends React.Component {
 
