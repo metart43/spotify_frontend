@@ -48,8 +48,7 @@ function fetchingSongs(token, playlistId) {
   }
 }
 
-function currentSong(token){
-  debugger
+function fetchingCurrentSong(token){
   spotifyApi.setAccessToken(token)
   return (dispatch) => {
     spotifyApi.getMyCurrentPlayingTrack()
@@ -65,7 +64,6 @@ function currentSong(token){
 
 
 function playingTrack(token, song){
-  debugger
   return (dispatch) => {
     fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
       method: 'PUT',
@@ -77,4 +75,4 @@ function playingTrack(token, song){
   }
 }
 
-export {accessingToken, fetchingPlaylist, selectPlaylist, fetchingSongs, playingTrack, getCurrentSong}
+export {accessingToken, fetchingPlaylist, selectPlaylist, fetchingSongs, playingTrack, fetchingCurrentSong}
