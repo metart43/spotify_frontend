@@ -1,5 +1,5 @@
 import React from 'react';
-import {selectPlaylist, fetchingSongs} from '../redux/actions'
+import {selectPlaylist, fetchingSongs, playingPlaylist} from '../redux/actions'
 import {connect} from 'react-redux'
 import {Button} from 'antd'
 
@@ -11,7 +11,9 @@ const PlaylistCard = (props) => {
     <p><img className='image' alt='playlist' src={props.pl.images[0].url} /></p>
     <p><Button size='small' onClick={
       () => {props.selectPlaylist(props.pl); props.fetchingSongs(props.token, props.pl.id);}
-    }>Play me</Button></p>
+    }>Show Me</Button></p>
+  <p><Button onClick={() => props.playingPlaylist(props.token, props.pl)}>Play Me</Button></p>
+    <Button >Follow me</Button>
     </React.Fragment>
   )
 }
@@ -23,7 +25,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => {
   return {
     selectPlaylist: (playlist) => dispatch(selectPlaylist(playlist)),
-    fetchingSongs: (token, playlistId) => dispatch(fetchingSongs(token, playlistId))
+    fetchingSongs: (token, playlistId) => dispatch(fetchingSongs(token, playlistId)),
+    playingPlaylist: (token, playlist) => dispatch(playingPlaylist(token, playlist))
   }
 }
 

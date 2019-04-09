@@ -6,7 +6,9 @@ import {playingTrack,
   pausingPlaybackFetch,
   pausePlayback,
   startPlayback,
-  startPlayerActivity} from '../redux/actions'
+  startPlayerActivity,
+  playNext,
+  playPrevious} from '../redux/actions'
 
 const { Footer } = Layout
 
@@ -15,22 +17,20 @@ class SpotifyPlayer extends Component {
   render(){
     return (
   <React.Fragment>
-    <Layout>
-        <Footer/>
       <Row type="flex" justify="space-around" align="middle" className={'currentTrack'}>
   {this.props.currentSong ? `${this.props.currentSong.track.artists[0].name} - ${this.props.currentSong.track.name}`: console.log('no')}</Row>
       <Row type="flex" justify="space-around" align="middle">
-  <Col><List.Item></List.Item><Button className={'playerButtons'} icon={'backward'} size={'large'} shape={'circle'}/>
+  <Col><List.Item></List.Item><Button className={'playerButtons'} icon={'backward'} size={'large'} shape={'circle'}
+    onClick={() => this.props.playPrevious(this.props.token)}/>
   {this.props.playbackStatus? <Button className={'playerButtons'} icon={'pause-circle'}
       onClick={() => {this.props.pausingPlaybackFetch(this.props.token); this.props.pausePlayback(this.props.playbackStatus); }} size={'large'} shape={'circle'}/>
     :
   <Button className={'playerButtons'} icon={'play-circle'}
       onClick={() => {this.props.playingTrack(this.props.token, this.props.currentSong); this.props.startPlayback(this.props.playbackStatus); }}
       size={'large'} shape={'circle'}/>}
-  <Button className={'playerButtons'} icon={'forward'} size={'large'} shape={'circle'}/></Col>
+  <Button className={'playerButtons'} icon={'forward'} size={'large'} shape={'circle'}
+    onClick={() => this.props.playNext(this.props.token)}/></Col>
       </Row>
-      <Footer style={{position: 'sticky', bottom: 0}}/>
-    </Layout>
 </React.Fragment>
           )
   }
@@ -49,7 +49,9 @@ const mapDispatchToProps = dispatch => ({
   pausePlayback: (playbackStatus) => dispatch(pausePlayback(playbackStatus)),
   playingTrack: (token, song) => dispatch(playingTrack(token, song)),
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
-  startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus))
+  startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
+  playNext: (token) => dispatch(playNext(token)),
+  playPrevious: (token) => dispatch(playNext(token))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(SpotifyPlayer)

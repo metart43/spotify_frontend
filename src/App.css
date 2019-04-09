@@ -19,3 +19,7 @@
 .currentTrack{
   border-width: thick;
 }
+
+.footer{
+position: fixed; bottom: 0;   
+}

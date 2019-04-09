@@ -8,7 +8,9 @@ import SpotifyPlayer from '../src/containers/SpotifyPlayer'
 import {connect} from 'react-redux'
 // import {withRouter} from 'react-router-dom'
 import {accessingToken, fetchingPlaylist} from '../src/redux/actions'
+import {Layout} from 'antd'
 
+const {Header, Content, Footer} = Layout
 
 class App extends Component {
 
@@ -30,13 +32,13 @@ componentDidMount(){
 
   render() {
     return (
-        <div className="App">
-          <NavBar />
-          <Locations />
+        <Layout className="App">
+          <Header><NavBar /></Header>
+          <Content><Locations />
           <PlaylistContainer />
-          <PlaylistIndex />
-          <SpotifyPlayer />
-        </div>
+          <PlaylistIndex /></Content>
+          <Footer className={'footer'}><SpotifyPlayer /></Footer>
+        </Layout>
     );
   }
 }

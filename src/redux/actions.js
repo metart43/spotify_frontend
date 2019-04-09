@@ -19,6 +19,7 @@ function fetchedSongs(songs){
 }
 
 function getCurrentSong(song) {
+  debugger
   return {type:"CURRENT_SONG", song}
 }
 
@@ -60,18 +61,15 @@ function fetchingSongs(token, playlistId) {
   }
 }
 
-function fetchingCurrentSong(token, songProp){
-  debugger
-  spotifyApi.setAccessToken(token)
-  return (dispatch) => {
-    spotifyApi.getMyCurrentPlayingTrack()
-  .then(function(song) {
-    console.log('Current song', song)
-    dispatch(getCurrentSong(songProp))
-}, function(err) {
-  console.error(err);
-    })
-  }
+function fetchingCurrentSong(token){
+  fetch('https://api.spotify.com/v1/me/player/currently-playing',{
+    method: 'GET',
+    headers: {"Accept" : "application/json",
+    "Content-Type" : "application/json",
+    "Authorization" : `Bearer ${token}`}
+  })
+  .then(res => res.json())
+  .then(song => getCurrentSong(song))
 }
 
 function pausingPlaybackFetch(token){
@@ -86,7 +84,6 @@ function pausingPlaybackFetch(token){
 }
 
 function playingTrack(token, song){
-  debugger
   return (dispatch) => {
     fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
       method: 'PUT',
@@ -99,7 +96,42 @@ function playingTrack(token, song){
   }
 }
 
+function playingPlaylist(token, playlist){
+  debugger
+  return (dispatch) => {
+    fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+      method: 'PUT',
+      headers: {"Accept" : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`},
+      body: JSON.stringify({"context_uri": `${playlist.uri}`})
+    })
+    .then(res => console.log(res))
+  }
+}
 
+function playNext(token){
+  return (dispatch) => {
+  fetch('https://api.spotify.com/v1/me/player/next?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+    method: "POST",
+    headers: {"Accept" : "application/json",
+    "Content-Type" : "application/json",
+    "Authorization" : `Bearer ${token}`}
+    })
+    .then(fetchingCurrentSong(token))
+  }
+}
+
+function playPrevious(token){
+  return (dispatch) => {
+  fetch('https://api.spotify.com/v1/me/player/previous?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+    method: "POST",
+    headers: {"Accept" : "application/json",
+    "Content-Type" : "application/json",
+    "Authorization" : `Bearer ${token}`}
+    })
+  }
+}
 export {accessingToken,
   fetchingPlaylist,
   selectPlaylist,
@@ -109,4 +141,7 @@ export {accessingToken,
   startPlayback,
   pausingPlaybackFetch,
   pausePlayback,
-  startPlayerActivity}
+  startPlayerActivity,
+  playingPlaylist,
+  playNext,
+  playPrevious}
