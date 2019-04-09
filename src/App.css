@@ -15,3 +15,7 @@
 .playerButtons{
   border-color: white;
 }
+
+.currentTrack{
+  border-width: thick;
+}

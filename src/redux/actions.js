@@ -22,6 +22,18 @@ function getCurrentSong(song) {
   return {type:"CURRENT_SONG", song}
 }
 
+function startPlayback(playerStatus) {
+  return {type:"START_PLAYBACK", playerStatus}
+}
+
+function pausePlayback(playerStatus) {
+  return {type:"PAUSE_PLAYBACK", playerStatus}
+}
+
+function startPlayerActivity(status){
+  return {type:"PLAYER_ACTIVE", status}
+}
+
 function fetchingPlaylist(token) {
   spotifyApi.setAccessToken(token)
   return (dispatch) => {
@@ -48,31 +60,53 @@ function fetchingSongs(token, playlistId) {
   }
 }
 
-function fetchingCurrentSong(token){
+function fetchingCurrentSong(token, songProp){
+  debugger
   spotifyApi.setAccessToken(token)
   return (dispatch) => {
     spotifyApi.getMyCurrentPlayingTrack()
   .then(function(song) {
     console.log('Current song', song)
-    dispatch(getCurrentSong(song))
+    dispatch(getCurrentSong(songProp))
 }, function(err) {
   console.error(err);
     })
   }
 }
 
-
+function pausingPlaybackFetch(token){
+  return (dispacth) => {
+    fetch('https://api.spotify.com/v1/me/player/pause?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+      method: 'PUT',
+      headers: {"Accept" : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`}
+    })
+  }
+}
 
 function playingTrack(token, song){
+  debugger
   return (dispatch) => {
     fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
       method: 'PUT',
       headers: {"Accept" : "application/json",
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`},
-      body: JSON.stringify({"uris": [`${song.track.uri}`]})
+      body: JSON.stringify({"uris": song.item?[`${song.item.uri}`] : [`${song.track.uri}`]})
     })
+    .then(dispatch(getCurrentSong(song)))
   }
 }
 
-export {accessingToken, fetchingPlaylist, selectPlaylist, fetchingSongs, playingTrack, fetchingCurrentSong}
+
+export {accessingToken,
+  fetchingPlaylist,
+  selectPlaylist,
+  fetchingSongs,
+  playingTrack,
+  fetchingCurrentSong,
+  startPlayback,
+  pausingPlaybackFetch,
+  pausePlayback,
+  startPlayerActivity}

@@ -45,12 +45,33 @@ const playerReducer = (state = null, action) => {
   }
 }
 
+const playerActivityReducer = (state = false, action) => {
+switch (action.type) {
+  case "PLAYER_ACTIVE":
+  return true
+  default:
+  return state
+  }
+}
+
+const startPlaybackReducer = (state = false, action) => {
+  switch (action.type) {
+    case "START_PLAYBACK":
+    return true
+    case "PAUSE_PLAYBACK":
+    return false
+    default:
+    return state
+  }
+}
 const rootReducer = combineReducers({
   playlists: playlistsReducer,
   token: authReducer,
   playlist: selectPlaylistReducer,
   songs: songReducer,
-  currentSong: playerReducer
+  currentSong: playerReducer,
+  playbackStatus: startPlaybackReducer,
+  playerStatus: playerActivityReducer
 });
 
 export default rootReducer;
