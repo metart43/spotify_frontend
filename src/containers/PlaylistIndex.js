@@ -10,7 +10,7 @@ class PlaylistIndex extends React.Component {
   render(){
     return (
       <Row type="flex" justify="space-around" align="middle">
-        {this.props.playlists.map((pl =><Col span={4}> <Card className='playlistCard'><PlaylistCard key={pl.id} pl={pl}/></Card></Col>))}
+        {this.props.playlists.map((pl =><Col key={pl.id} span={4}> <Card className='playlistCard'><PlaylistCard key={pl.id} pl={pl}/></Card></Col>))}
       </Row>
   )
   }

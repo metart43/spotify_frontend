@@ -17,22 +17,30 @@ class SpotifyPlayer extends Component {
   render(){
     return (
   <React.Fragment>
-      <Row type="flex" justify="space-around" align="middle" className={'currentTrack'}>
-  {this.props.currentSong ? `${this.props.currentSong.track.artists[0].name} - ${this.props.currentSong.track.name}`: console.log('no')}</Row>
-      <Row type="flex" justify="space-around" align="middle">
+    <Row type="flex" justify="center" align="middle">
+      {this.props.currentSong? this.props.currentSong.item.name : console.log('no song')}
+      </Row>
+      <Row type="flex" justify="center" align="middle">
   <Col><List.Item></List.Item><Button className={'playerButtons'} icon={'backward'} size={'large'} shape={'circle'}
-    onClick={() => this.props.playPrevious(this.props.token)}/>
+      onClick={() =>
+      {this.props.playPrevious(this.props.token);
+      setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}/>
   {this.props.playbackStatus? <Button className={'playerButtons'} icon={'pause-circle'}
-      onClick={() => {this.props.pausingPlaybackFetch(this.props.token); this.props.pausePlayback(this.props.playbackStatus); }} size={'large'} shape={'circle'}/>
+      onClick={() => {this.props.pausingPlaybackFetch(this.props.token);
+      this.props.pausePlayback(this.props.playbackStatus);
+      setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}} size={'large'} shape={'circle'}/>
     :
   <Button className={'playerButtons'} icon={'play-circle'}
-      onClick={() => {this.props.playingTrack(this.props.token, this.props.currentSong); this.props.startPlayback(this.props.playbackStatus); }}
+      onClick={() => {this.props.playingTrack(this.props.token, this.props.currentSong);
+        this.props.startPlayback(this.props.playbackStatus);
+        setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}
       size={'large'} shape={'circle'}/>}
   <Button className={'playerButtons'} icon={'forward'} size={'large'} shape={'circle'}
-    onClick={() => this.props.playNext(this.props.token)}/></Col>
+    onClick={() => {this.props.playNext(this.props.token);
+      setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}/></Col>
       </Row>
 </React.Fragment>
-          )
+    )
   }
 }
 

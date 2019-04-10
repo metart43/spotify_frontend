@@ -18,7 +18,7 @@ const selectPlaylistReducer = (state = null, action) => {
   }
 }
 
-const authReducer = (state = {}, action) => {
+const authReducer = (state = null, action) => {
   switch(action.type) {
     case "ACCESSING_TOKEN":
     return action.token

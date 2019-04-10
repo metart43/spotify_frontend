@@ -7,7 +7,7 @@ class SongsList extends React.Component {
   render(){
     return(
       <List>
-          {this.props.songs.items.map(song => <SongItem song={song}/>)}
+          {this.props.songs.items.map(song => <SongItem key={song.id} song={song}/>)}
       </List>
     )
   }

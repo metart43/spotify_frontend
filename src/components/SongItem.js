@@ -13,7 +13,8 @@ const SongItem = (props) => {
         <Button size={'small'} shape={"circle"} icon={"play-circle"}
           onClick={() =>
             {props.playingTrack(props.token, props.song);
-            props.startPlayback(props.playbackStatus);}
+            props.startPlayback(props.playbackStatus);
+            setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}
         }></Button>
         &nbsp;&nbsp;
         <Button size={'small'} shape={"circle"} icon={"fire"}></Button>
@@ -31,12 +32,10 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 
   playingTrack: (token, song) => dispatch(playingTrack(token, song)),
-  fetchingCurrentSong: (token, song) => dispatch(fetchingCurrentSong(token, song)),
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
-  startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus))
+  startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
+  fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token))
 
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongItem)
-
-// props.startPlayerActivity(props.playerStatus)}

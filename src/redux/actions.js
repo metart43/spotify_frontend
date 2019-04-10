@@ -1,4 +1,5 @@
 import SpotifyWebApi from 'spotify-web-api-js'
+import fetchTimeout from 'fetch-timeout';
 
 const spotifyApi = new SpotifyWebApi();
 
@@ -19,7 +20,6 @@ function fetchedSongs(songs){
 }
 
 function getCurrentSong(song) {
-  debugger
   return {type:"CURRENT_SONG", song}
 }
 
@@ -61,16 +61,21 @@ function fetchingSongs(token, playlistId) {
   }
 }
 
-function fetchingCurrentSong(token){
-  fetch('https://api.spotify.com/v1/me/player/currently-playing',{
+
+ function fetchingCurrentSong(token){
+   console.log('step2');
+  return (dispatch) => {
+    fetch('https://api.spotify.com/v1/me/player/currently-playing', {
     method: 'GET',
     headers: {"Accept" : "application/json",
     "Content-Type" : "application/json",
     "Authorization" : `Bearer ${token}`}
   })
-  .then(res => res.json())
-  .then(song => getCurrentSong(song))
+    .then(res => res.json())
+    .then(song => {console.log('current song', song);dispatch(getCurrentSong(song))})
+  }
 }
+
 
 function pausingPlaybackFetch(token){
   return (dispacth) => {
@@ -85,19 +90,18 @@ function pausingPlaybackFetch(token){
 
 function playingTrack(token, song){
   return (dispatch) => {
+    console.log("step 1")
     fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
       method: 'PUT',
-      headers: {"Accept" : "application/json",
+      headers: {Accept : "application/json",
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`},
       body: JSON.stringify({"uris": song.item?[`${song.item.uri}`] : [`${song.track.uri}`]})
     })
-    .then(dispatch(getCurrentSong(song)))
   }
 }
 
 function playingPlaylist(token, playlist){
-  debugger
   return (dispatch) => {
     fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
       method: 'PUT',
@@ -118,7 +122,7 @@ function playNext(token){
     "Content-Type" : "application/json",
     "Authorization" : `Bearer ${token}`}
     })
-    .then(fetchingCurrentSong(token))
+    .then((dispatch(fetchingCurrentSong(token))))
   }
 }
 

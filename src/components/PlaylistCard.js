@@ -1,5 +1,5 @@
 import React from 'react';
-import {selectPlaylist, fetchingSongs, playingPlaylist} from '../redux/actions'
+import {selectPlaylist, fetchingSongs, playingPlaylist, startPlayback, fetchingCurrentSong} from '../redux/actions'
 import {connect} from 'react-redux'
 import {Button} from 'antd'
 
@@ -9,11 +9,16 @@ const PlaylistCard = (props) => {
     <React.Fragment>
     <p>{props.pl.name}</p>
     <p><img className='image' alt='playlist' src={props.pl.images[0].url} /></p>
-    <p><Button size='small' onClick={
-      () => {props.selectPlaylist(props.pl); props.fetchingSongs(props.token, props.pl.id);}
-    }>Show Me</Button></p>
-  <p><Button onClick={() => props.playingPlaylist(props.token, props.pl)}>Play Me</Button></p>
-    <Button >Follow me</Button>
+    <Button shape='circle' size='small' icon='' onClick={
+      () => {props.selectPlaylist(props.pl);
+            props.fetchingSongs(props.token, props.pl.id);}}>
+    <i class="far fa-eye"></i>
+    </Button>
+    <Button size='small' shape='circle' icon='play-circle'
+    onClick={() => {props.playingPlaylist(props.token, props.pl);
+    props.startPlayback(props.playbackStatus);
+    setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}}>
+    </Button>
     </React.Fragment>
   )
 }
@@ -26,7 +31,9 @@ const mapDispatchToProps = dispatch => {
   return {
     selectPlaylist: (playlist) => dispatch(selectPlaylist(playlist)),
     fetchingSongs: (token, playlistId) => dispatch(fetchingSongs(token, playlistId)),
-    playingPlaylist: (token, playlist) => dispatch(playingPlaylist(token, playlist))
+    playingPlaylist: (token, playlist) => dispatch(playingPlaylist(token, playlist)),
+    startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
+    fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token))
   }
 }
 
