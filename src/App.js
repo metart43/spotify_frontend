@@ -7,7 +7,7 @@ import PlaylistContainer from '../src/containers/PlaylistContainer'
 import SpotifyPlayer from '../src/containers/SpotifyPlayer'
 import {connect} from 'react-redux'
 // import {withRouter} from 'react-router-dom'
-import {accessingToken, fetchingPlaylist} from '../src/redux/actions'
+import {accessingToken, fetchingPlaylist, settingUser} from '../src/redux/actions'
 import {Layout} from 'antd'
 
 const {Header, Content, Footer} = Layout
@@ -27,6 +27,7 @@ componentDidMount(){
   } else {
     this.props.accessingToken(hashParams.access_token)
     this.props.fetchingPlaylist(hashParams.access_token)
+    this.props.settingUser(hashParams.access_token)
   }
 }
 
@@ -52,7 +53,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     accessingToken: (token) => dispatch(accessingToken(token)),
-    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token))
+    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token)),
+    settingUser: (token) => dispatch(settingUser(token))
   }
 }
 

@@ -1,5 +1,14 @@
 import { combineReducers } from "redux";
 
+const userReducer = (state = null, action) => {
+  switch(action.type) {
+    case "USER_PROFILE":
+    return action.user
+    default:
+    return state
+  }
+}
+
 const playlistsReducer = (state = [], action) => {
   switch(action.type) {
     case "FETCHED_PLAYLISTS":
@@ -64,6 +73,17 @@ const startPlaybackReducer = (state = false, action) => {
     return state
   }
 }
+
+const hiddenGemReducer = (state = null, action) => {
+  switch (action.type) {
+    case 'FETCHED_GEMS':
+    return state
+      break;
+    default:
+    return state
+  }
+}
+
 const rootReducer = combineReducers({
   playlists: playlistsReducer,
   token: authReducer,
@@ -71,7 +91,8 @@ const rootReducer = combineReducers({
   songs: songReducer,
   currentSong: playerReducer,
   playbackStatus: startPlaybackReducer,
-  playerStatus: playerActivityReducer
+  playerStatus: playerActivityReducer,
+  user: userReducer
 });
 
 export default rootReducer;

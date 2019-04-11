@@ -1,8 +1,6 @@
 import SpotifyWebApi from 'spotify-web-api-js'
-import fetchTimeout from 'fetch-timeout';
 
 const spotifyApi = new SpotifyWebApi();
-
 
 function fetchedPLaylist(playlists){
    return { type: "FETCHED_PLAYLISTS", playlists}
@@ -19,6 +17,10 @@ function fetchedSongs(songs){
   return {type:"FETCHED_SONGS", songs}
 }
 
+function setUser(user){
+  return {type:"USER_PROFILE", user}
+}
+
 function getCurrentSong(song) {
   return {type:"CURRENT_SONG", song}
 }
@@ -33,6 +35,20 @@ function pausePlayback(playerStatus) {
 
 function startPlayerActivity(status){
   return {type:"PLAYER_ACTIVE", status}
+}
+
+function settingUser(token){
+
+  return (dispatch) => {
+    fetch('https://api.spotify.com/v1/me',{
+    method: 'GET',
+    headers: {"Accept" : "application/json",
+    "Content-Type" : "application/json",
+    "Authorization" : `Bearer ${token}`}
+  })
+  .then(res => res.json())
+  .then(user => dispatch(setUser(user)))
+  }
 }
 
 function fetchingPlaylist(token) {
@@ -72,7 +88,7 @@ function fetchingSongs(token, playlistId) {
     "Authorization" : `Bearer ${token}`}
   })
     .then(res => res.json())
-    .then(song => {console.log('current song', song);dispatch(getCurrentSong(song))})
+    .then(song => {dispatch(getCurrentSong(song))})
   }
 }
 
@@ -97,6 +113,17 @@ function playingTrack(token, song){
       "Content-Type" : "application/json",
       "Authorization" : `Bearer ${token}`},
       body: JSON.stringify({"uris": song.item?[`${song.item.uri}`] : [`${song.track.uri}`]})
+    })
+  }
+}
+
+function playResume(token){
+  return (dispatch) => {
+    fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+      method: 'PUT',
+      headers: {Accept : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`}
     })
   }
 }
@@ -148,4 +175,6 @@ export {accessingToken,
   startPlayerActivity,
   playingPlaylist,
   playNext,
-  playPrevious}
+  playPrevious,
+  settingUser,
+  playResume}

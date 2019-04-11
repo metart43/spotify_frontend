@@ -8,7 +8,8 @@ import {playingTrack,
   startPlayback,
   startPlayerActivity,
   playNext,
-  playPrevious} from '../redux/actions'
+  playPrevious,
+  playResume} from '../redux/actions'
 
 const { Footer } = Layout
 
@@ -31,7 +32,7 @@ class SpotifyPlayer extends Component {
       setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}} size={'large'} shape={'circle'}/>
     :
   <Button className={'playerButtons'} icon={'play-circle'}
-      onClick={() => {this.props.playingTrack(this.props.token, this.props.currentSong);
+      onClick={() => {this.props.playResume(this.props.token);
         this.props.startPlayback(this.props.playbackStatus);
         setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}
       size={'large'} shape={'circle'}/>}
@@ -59,7 +60,8 @@ const mapDispatchToProps = dispatch => ({
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
   startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
   playNext: (token) => dispatch(playNext(token)),
-  playPrevious: (token) => dispatch(playNext(token))
+  playPrevious: (token) => dispatch(playNext(token)),
+  playResume: (token) => dispatch(playResume(token))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(SpotifyPlayer)
