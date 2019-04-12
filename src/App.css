@@ -24,6 +24,14 @@
 position: fixed; bottom: 0;
 }
 
-#signedIn{
-  font: blue;
+#title{
+  color: gray;
+}
+
+.ant-layout-header{
+  background: white;
+}
+
+.ant-menu-horizontal {
+  border-bottom: 0px;
 }

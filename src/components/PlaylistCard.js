@@ -12,7 +12,7 @@ const PlaylistCard = (props) => {
     <Button shape='circle' size='small' icon='' onClick={
       () => {props.selectPlaylist(props.pl);
             props.fetchingSongs(props.token, props.pl.id);}}>
-    <i class="far fa-eye"></i>
+    <i className="far fa-eye"></i>
     </Button>
     <Button size='small' shape='circle' icon='play-circle'
     onClick={() => {props.playingPlaylist(props.token, props.pl);

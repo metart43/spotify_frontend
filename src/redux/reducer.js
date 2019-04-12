@@ -45,6 +45,16 @@ const songReducer = (state = null, action) => {
   }
 }
 
+const gemSongsReducer = (state = [], action) => {
+  switch (action.type) {
+    case "FETCHED_GEM_SONG":
+    console.log('fetched gem songs:', action.songs)
+    return action.songs
+    default:
+    return state
+  }
+}
+
 const playerReducer = (state = null, action) => {
   switch (action.type) {
   case "CURRENT_SONG":
@@ -76,9 +86,13 @@ const startPlaybackReducer = (state = false, action) => {
 
 const hiddenGemReducer = (state = null, action) => {
   switch (action.type) {
-    case 'FETCHED_GEMS':
+    case "HIDDEN_GEM":
+    return action.hiddenGem
+    case 'FETCHED_HIDDEN_GEM':
+    return action.hiddenGem
+    case 'REMOVE_HIDDEN_GEM':
+    debugger
     return state
-      break;
     default:
     return state
   }
@@ -92,7 +106,9 @@ const rootReducer = combineReducers({
   currentSong: playerReducer,
   playbackStatus: startPlaybackReducer,
   playerStatus: playerActivityReducer,
-  user: userReducer
+  user: userReducer,
+  hiddenGem: hiddenGemReducer,
+  gemSongs: gemSongsReducer
 });
 
 export default rootReducer;

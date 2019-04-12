@@ -36,9 +36,24 @@ function pausePlayback(playerStatus) {
 function startPlayerActivity(status){
   return {type:"PLAYER_ACTIVE", status}
 }
+function setHiddenGem(hiddenGem){
+  return {type:'FETCHED_HIDDEN_GEM', hiddenGem}
+}
+
+function setGemSongs(songs){
+  return {type:'FETCHED_GEM_SONG', songs}
+
+}
+function fetchingUserInfo(user) {
+  return (dispatch) => {
+    fetch(`http://localhost:3000/api/v1/users/${user.id}`)
+    .then(res => res.json())
+    .then(user => {dispatch(setHiddenGem(user.hidden_gem))
+    dispatch(setGemSongs(user.songs))})
+  }
+}
 
 function settingUser(token){
-
   return (dispatch) => {
     fetch('https://api.spotify.com/v1/me',{
     method: 'GET',
@@ -47,7 +62,9 @@ function settingUser(token){
     "Authorization" : `Bearer ${token}`}
   })
   .then(res => res.json())
-  .then(user => dispatch(setUser(user)))
+  .then(user => {
+    dispatch(fetchingUserInfo(user))
+    dispatch(setUser(user))})
   }
 }
 

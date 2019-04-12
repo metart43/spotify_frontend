@@ -5,8 +5,9 @@ import Locations from '../src/components/Locations'
 import PlaylistIndex from '../src/containers/PlaylistIndex'
 import PlaylistContainer from '../src/containers/PlaylistContainer'
 import SpotifyPlayer from '../src/containers/SpotifyPlayer'
+import HiddenGem from '../src/containers/HiddenGem'
 import {connect} from 'react-redux'
-// import {withRouter} from 'react-router-dom'
+import {Route, Redirect, Switch } from 'react-router-dom'
 import {accessingToken, fetchingPlaylist, settingUser} from '../src/redux/actions'
 import {Layout} from 'antd'
 
@@ -35,9 +36,13 @@ componentDidMount(){
     return (
         <Layout className="App">
           <Header><NavBar /></Header>
-          <Content><Locations />
+          <Content>
+          <Switch>
+          <Route path='/gem' render={() => <HiddenGem/>} />
+          </Switch>
           <PlaylistContainer />
-          <PlaylistIndex /></Content>
+          <PlaylistIndex />
+          </Content>
           <Footer className={'footer'}><SpotifyPlayer /></Footer>
         </Layout>
     );
@@ -47,6 +52,7 @@ componentDidMount(){
 const mapStateToProps = state => {
   return {
     playlist: state.playlist,
+    user: state.user
   }
 }
 
