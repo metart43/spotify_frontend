@@ -7,6 +7,13 @@ function removeGem(){
   return {type: 'REMOVE_HIDDEN_GEM'}
 }
 
+function removeGemSongs(){
+  return {type: 'REMOVE_SONGS'}
+}
+
+function addGemSongs(song){
+  return {type: 'ADD_GEM_SONGS', song}
+}
 
 function createHiddenGem (props) {
 return (dispatch) => {
@@ -31,7 +38,7 @@ function addSongToPile(user, gem, song){
         name: song.track.name}})
     })
     .then(res => res.json())
-    .then(song => console.log(song))
+    .then(song => dispatch(addGemSongs(song)))
   }
 }
 
@@ -40,8 +47,9 @@ function deleteHiddenGem(hiddenGem){
     fetch(`http://localhost:3000/hidden_gems/${hiddenGem.id}`, {
       method: "DELETE"
     })
-    .then(dispatch(removeGem()))
-  }
+    .then(dispatch(removeGem()),
+          dispatch(removeGemSongs()))
+    }
 }
 
 export {createHiddenGem, addSongToPile, deleteHiddenGem}

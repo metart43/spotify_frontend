@@ -38,7 +38,7 @@ componentDidMount(){
           <Header><NavBar /></Header>
           <Content>
           <Switch>
-          <Route path='/gem' render={() => <HiddenGem/>} />
+          {this.props.hiddenGem? <Route path='/gem' render={() => <HiddenGem/>} /> : null}
           </Switch>
           <PlaylistContainer />
           <PlaylistIndex />
@@ -52,7 +52,8 @@ componentDidMount(){
 const mapStateToProps = state => {
   return {
     playlist: state.playlist,
-    user: state.user
+    user: state.user,
+    hiddenGem: state.hiddenGem
   }
 }
 

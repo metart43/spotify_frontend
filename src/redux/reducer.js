@@ -48,8 +48,11 @@ const songReducer = (state = null, action) => {
 const gemSongsReducer = (state = [], action) => {
   switch (action.type) {
     case "FETCHED_GEM_SONG":
-    console.log('fetched gem songs:', action.songs)
     return action.songs
+    case "REMOVE_SONGS":
+    return []
+    case "ADD_GEM_SONGS":
+    return state.concat([action.song])
     default:
     return state
   }
@@ -91,8 +94,7 @@ const hiddenGemReducer = (state = null, action) => {
     case 'FETCHED_HIDDEN_GEM':
     return action.hiddenGem
     case 'REMOVE_HIDDEN_GEM':
-    debugger
-    return state
+    return null
     default:
     return state
   }

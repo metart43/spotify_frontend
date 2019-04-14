@@ -6,7 +6,7 @@ import {playingTrack,
   fetchingCurrentSong,
   startPlayback,
   startPlayerActivity} from '../redux/actions'
-  import {addSongToPile} from '../redux/backendActions'
+import {addSongToPile} from '../redux/backendActions'
 
 const SongItem = (props) => {
   return(
