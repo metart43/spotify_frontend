@@ -11,11 +11,11 @@ class PlaylistIndex extends React.Component {
 
   render(){
     return (
-      <Row gutter={16} justify="center" type='flex'>
-        {this.props.playlists.map((pl =><Col id={'cardColumn'} key={pl.id} span={4}> <Card onClick={
+      <Row gutter={16} id={'playListIndex'}justify="center" type='flex'>
+        {this.props.playlists.map((pl =><Col id={'cardColumn'} key={pl.id} span={4}> <Card hoverable size="small" title={pl.name} cover={<img alt="example" onClick={
           () => {this.props.selectPlaylist(pl);
                 this.props.fetchingSongs(this.props.token, pl.id);
-                this.props.showPlaylistModal(this.props.playlistModalStatus)}} hoverable size="small" title={pl.name} cover={<img alt="example" src={pl.images[0].url} />} className='playlistCard'><PlaylistCard key={pl.id} pl={pl}/></Card></Col>))}
+                this.props.showPlaylistModal(this.props.playlistModalStatus)}} src={pl.images[0].url} />} className='playlistCard'><PlaylistCard key={pl.id} pl={pl}/></Card></Col>))}
       </Row>
   )
   }

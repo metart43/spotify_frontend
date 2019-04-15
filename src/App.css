@@ -20,7 +20,7 @@
 }
 
 .footer{
-position: fixed; bottom: 0;
+ bottom: 0;
 }
 
 #title{
@@ -44,4 +44,23 @@ position: fixed; bottom: 0;
     margin-left: 10px;
     position: absolute;
     margin-block-start: 7px;
+}
+
+#playListIndex{
+  background-color: white;
+}
+
+#spotifyPlayer{
+  position: sticky;
+  bottom: 0;
+  background-color: white;
+}
+
+.playerThumbnail{
+  height: 50px;
+  width: 50px;
+}
+
+#playerBottomRow{
+  margin-block-end: 20px;
 }

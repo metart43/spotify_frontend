@@ -43,7 +43,7 @@ componentDidMount(){
           <PlaylistContainer />
           <PlaylistIndex />
           </Content>
-          <Footer className={'footer'}><SpotifyPlayer /></Footer>
+          <SpotifyPlayer id={"spotifyPlayer"}/>
         </Layout>
     );
   }
