@@ -8,7 +8,6 @@
 }
 
 .playlistCard {
-  height: 275px;
   text-align: center;
 }
 
@@ -26,6 +25,11 @@ position: fixed; bottom: 0;
 
 #title{
   color: gray;
+}
+
+#cardColumn{
+  padding-block-start: 10px;
+  padding-block-end: 10px;
 }
 
 .ant-layout-header{

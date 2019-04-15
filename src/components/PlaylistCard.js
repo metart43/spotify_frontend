@@ -11,8 +11,6 @@ import {Button, Modal} from 'antd'
 const PlaylistCard = (props) => {
   return (
     <React.Fragment>
-    <p>{props.pl.name}</p>
-    <p><img className='image' alt='playlist' src={props.pl.images[0].url} /></p>
     <Button shape='circle' size='small' onClick={
       () => {props.selectPlaylist(props.pl);
             props.fetchingSongs(props.token, props.pl.id);

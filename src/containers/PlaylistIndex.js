@@ -1,16 +1,21 @@
 import React from 'react';
 import PlaylistCard from '../components/PlaylistCard'
 import {connect} from 'react-redux'
-import {fetchingPlaylist} from '../redux/actions'
-import {Card, Row, Col} from 'antd'
+import {fetchingPlaylist, selectPlaylist, fetchingSongs} from '../redux/actions'
+import {showPlaylistModal} from '../redux/modalActions'
+import {Card, Row, Col, Avatar, Icon} from 'antd'
 
+const { Meta } = Card
 
 class PlaylistIndex extends React.Component {
 
   render(){
     return (
-      <Row type="flex" justify="space-around" align="middle">
-        {this.props.playlists.map((pl =><Col key={pl.id} span={4}> <Card className='playlistCard'><PlaylistCard key={pl.id} pl={pl}/></Card></Col>))}
+      <Row gutter={16} justify="center" type='flex'>
+        {this.props.playlists.map((pl =><Col id={'cardColumn'} key={pl.id} span={4}> <Card onClick={
+          () => {this.props.selectPlaylist(pl);
+                this.props.fetchingSongs(this.props.token, pl.id);
+                this.props.showPlaylistModal(this.props.playlistModalStatus)}} hoverable size="small" title={pl.name} cover={<img alt="example" src={pl.images[0].url} />} className='playlistCard'><PlaylistCard key={pl.id} pl={pl}/></Card></Col>))}
       </Row>
   )
   }
@@ -18,12 +23,16 @@ class PlaylistIndex extends React.Component {
 
 const mapStateToProps = state => ({
   token: state.token,
-  playlists: state.playlists
+  playlists: state.playlists,
+  playlistModalStatus: state.playlistModalStatus
 })
 
 const mapDispatchToProps = dispatch => {
   return {
-    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token))
+    selectPlaylist: (playlist) => dispatch(selectPlaylist(playlist)),
+    fetchingSongs: (token, playlistId) => dispatch(fetchingSongs(token, playlistId)),
+    fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token)),
+    showPlaylistModal: (status) => dispatch(showPlaylistModal(status))
   }
 }
 
