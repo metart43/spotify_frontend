@@ -4,16 +4,16 @@ import {connect} from 'react-redux'
 import {Button} from 'antd'
 
 const PlaylistCard = (props) => {
-  //redo the playlist and send the playlist to a spotify player
   return (
     <React.Fragment>
     <p>{props.pl.name}</p>
     <p><img className='image' alt='playlist' src={props.pl.images[0].url} /></p>
-    <Button shape='circle' size='small' icon='' onClick={
+    {}<Button shape='circle' size='small' icon='' onClick={
       () => {props.selectPlaylist(props.pl);
             props.fetchingSongs(props.token, props.pl.id);}}>
     <i className="far fa-eye"></i>
     </Button>
+    <Button>Show Modal</Button>
     <Button size='small' shape='circle' icon='play-circle'
     onClick={() => {props.playingPlaylist(props.token, props.pl);
     props.startPlayback(props.playbackStatus);
@@ -24,7 +24,8 @@ const PlaylistCard = (props) => {
 }
 
 const mapStateToProps = state => ({
-  token: state.token
+  token: state.token,
+  playlistToggleStatus: state.playlist
 })
 
 const mapDispatchToProps = dispatch => {

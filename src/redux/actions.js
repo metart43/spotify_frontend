@@ -42,8 +42,8 @@ function setHiddenGem(hiddenGem){
 
 function setGemSongs(songs){
   return {type:'FETCHED_GEM_SONG', songs}
-
 }
+
 function fetchingUserInfo(user) {
   return (dispatch) => {
     fetch(`http://localhost:3000/api/v1/users/${user.id}`)
@@ -134,6 +134,20 @@ function playingTrack(token, song){
   }
 }
 
+function playingTrackFromGemItem(token, song){
+  debugger
+  return (dispatch) => {
+    console.log("step 1")
+    fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+      method: 'PUT',
+      headers: {Accept : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`},
+      body: JSON.stringify({"uris": song.uri ? [`${song.uri}`] : [`${song.song_uri}`]})
+    })
+  }
+}
+
 function playResume(token){
   return (dispatch) => {
     fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
@@ -194,4 +208,5 @@ export {accessingToken,
   playNext,
   playPrevious,
   settingUser,
-  playResume}
+  playResume,
+  playingTrackFromGemItem}

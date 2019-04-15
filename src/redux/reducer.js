@@ -48,11 +48,14 @@ const songReducer = (state = null, action) => {
 const gemSongsReducer = (state = [], action) => {
   switch (action.type) {
     case "FETCHED_GEM_SONG":
-    return action.songs
+    return action.songs ? action.songs : []
     case "REMOVE_SONGS":
     return []
     case "ADD_GEM_SONGS":
     return state.concat([action.song])
+    case 'REMOVE_SONGS_FROM_GEM':
+    debugger
+    return state.filter(song => song.id != action.song.id)
     default:
     return state
   }
@@ -92,11 +95,22 @@ const hiddenGemReducer = (state = null, action) => {
     case "HIDDEN_GEM":
     return action.hiddenGem
     case 'FETCHED_HIDDEN_GEM':
-    return action.hiddenGem
+    return action.hiddenGem ? action.hiddenGem : null
     case 'REMOVE_HIDDEN_GEM':
     return null
     default:
     return state
+  }
+}
+
+const toggleReducer = (state = false, action) => {
+  switch (action.type) {
+    case 'ACTIVATE_PILE':
+      return !action.status
+      case 'DEACTIVATE_PILE_TOGGLE':
+      return false
+    default:
+      return state
   }
 }
 
@@ -110,7 +124,9 @@ const rootReducer = combineReducers({
   playerStatus: playerActivityReducer,
   user: userReducer,
   hiddenGem: hiddenGemReducer,
-  gemSongs: gemSongsReducer
+  gemSongs: gemSongsReducer,
+  pileToggleStatus: toggleReducer,
+  playlistToggleStatus: toggleReducer
 });
 
 export default rootReducer;
