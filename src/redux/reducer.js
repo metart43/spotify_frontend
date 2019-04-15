@@ -105,12 +105,23 @@ const hiddenGemReducer = (state = null, action) => {
 
 const toggleReducer = (state = false, action) => {
   switch (action.type) {
-    case 'ACTIVATE_PILE':
+    case 'PILE_ACTIVATE':
       return !action.status
       case 'DEACTIVATE_PILE_TOGGLE':
       return false
     default:
       return state
+  }
+}
+
+const modalReducer = (state = false, action) => {
+  switch (action.type) {
+    case "ACTIVATE_PLAYLIST_MODAL":
+    return true
+    case "DEACTIVATE_PLAYLIST_MODAL":
+    return false
+    default:
+    return state
   }
 }
 
@@ -126,7 +137,7 @@ const rootReducer = combineReducers({
   hiddenGem: hiddenGemReducer,
   gemSongs: gemSongsReducer,
   pileToggleStatus: toggleReducer,
-  playlistToggleStatus: toggleReducer
+  playlistModalStatus: modalReducer
 });
 
 export default rootReducer;

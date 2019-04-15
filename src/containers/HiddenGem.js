@@ -2,18 +2,29 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {deleteHiddenGem} from '../redux/backendActions'
 import {togglePileAction} from '../redux/toggleActions'
-import {List, Avatar, Button} from 'antd'
+import {List, Avatar, Button, Typography, Row, Col} from 'antd'
 import GemItem from '../components/GemItem'
+
+
+const {Title} =  Typography
 
 class HiddenGem extends React.Component {
   render(){
     return(
       <React.Fragment>
-        {this.props.hiddenGem? this.props.hiddenGem.name : console.log('no name')}
-        <List>
-        {this.props.gemSongs.length > 0 ? this.props.gemSongs.map(song => <GemItem key={song.id} song={song}/>) : console.log('no songs')}
-        </List>
-        <Button onClick={() => {this.props.deleteHiddenGem(this.props.hiddenGem)}}>Scrap A Pile</Button>
+        <Row type="flex" justify="space-around" align="middle">
+          <Col span={10}></Col>
+          <Col span={4}><Title level={3}>{this.props.hiddenGem? this.props.hiddenGem.name : console.log('no name')}
+            <Button id={'deleteButton'} type={'circle'} size={'small'}icon={'delete'} onClick={() => {this.props.deleteHiddenGem(this.props.hiddenGem)}}></Button>
+          </Title>
+          </Col>
+          <Col span={8}></Col>
+          <Col span={4}></Col>
+          <Col span={12}><List>
+            {this.props.gemSongs.length > 0 ? this.props.gemSongs.map(song => <GemItem key={song.id} song={song}/>) : console.log('no songs')}
+          </List>
+          </Col>
+          </Row>
       </React.Fragment>
     )
   }

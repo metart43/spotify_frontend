@@ -9,10 +9,11 @@ import {playingTrackFromGemItem,
 import {removerSongFromPile} from '../redux/backendActions'
 
 const GemItem = (props) => {
+  console.log(props.song);
   return(
     <React.Fragment>
       <List.Item>
-        <strong>{props.song.artist.name}</strong> - {props.song.name}
+        <strong>{props.song.artist}</strong> - {props.song.name}
         &nbsp;
         <Button size={'small'} shape={"circle"} icon={"play-circle"}
           onClick={() =>

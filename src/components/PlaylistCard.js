@@ -1,19 +1,24 @@
 import React from 'react';
-import {selectPlaylist, fetchingSongs, playingPlaylist, startPlayback, fetchingCurrentSong} from '../redux/actions'
+import {selectPlaylist,
+        fetchingSongs,
+        playingPlaylist,
+        startPlayback,
+        fetchingCurrentSong} from '../redux/actions'
+import {showPlaylistModal} from '../redux/modalActions'
 import {connect} from 'react-redux'
-import {Button} from 'antd'
+import {Button, Modal} from 'antd'
 
 const PlaylistCard = (props) => {
   return (
     <React.Fragment>
     <p>{props.pl.name}</p>
     <p><img className='image' alt='playlist' src={props.pl.images[0].url} /></p>
-    {}<Button shape='circle' size='small' icon='' onClick={
+    <Button shape='circle' size='small' onClick={
       () => {props.selectPlaylist(props.pl);
-            props.fetchingSongs(props.token, props.pl.id);}}>
+            props.fetchingSongs(props.token, props.pl.id);
+            props.showPlaylistModal(props.playlistModalStatus)}}>
     <i className="far fa-eye"></i>
     </Button>
-    <Button>Show Modal</Button>
     <Button size='small' shape='circle' icon='play-circle'
     onClick={() => {props.playingPlaylist(props.token, props.pl);
     props.startPlayback(props.playbackStatus);
@@ -25,7 +30,7 @@ const PlaylistCard = (props) => {
 
 const mapStateToProps = state => ({
   token: state.token,
-  playlistToggleStatus: state.playlist
+  playlistModalStatus: state.playlistModalStatus
 })
 
 const mapDispatchToProps = dispatch => {
@@ -34,7 +39,8 @@ const mapDispatchToProps = dispatch => {
     fetchingSongs: (token, playlistId) => dispatch(fetchingSongs(token, playlistId)),
     playingPlaylist: (token, playlist) => dispatch(playingPlaylist(token, playlist)),
     startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
-    fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token))
+    fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
+    showPlaylistModal: (status) => dispatch(showPlaylistModal(status))
   }
 }
 

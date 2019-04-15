@@ -18,7 +18,7 @@ const NavBar = (props) => {
       <Menu.Item style={{float: "right"}}>  {props.user? <Text type="secondary"> <strong> {props.user.display_name} </strong></Text> : <Button type="primary" ><a href='http://localhost:3000/api/v1/login'> Sign In <i className="fas fa-headphones-alt"> </i> </a></Button>}
       </Menu.Item>
       <Menu.Item style={{float: "right"}}>
-        {props.hiddenGem ?  <NavLink id='link' to='/gem'> <Button onClick={() => {props.togglePileAction(props.pileToggleStatus)}}> {props.pileToggleStatus ? 'Hide' : 'Show' }</Button></NavLink> :
+        {props.hiddenGem ? <Button onClick={() => {props.togglePileAction(props.pileToggleStatus)}}> {props.pileToggleStatus ? 'Hide': 'Show'}</Button> :
         <Button onClick={() => {props.createHiddenGem(props.user)}}>Make A Pile</Button>}
         </Menu.Item>
         </Menu>

@@ -35,3 +35,9 @@ position: fixed; bottom: 0;
 .ant-menu-horizontal {
   border-bottom: 0px;
 }
+
+#deleteButton{
+    margin-left: 10px;
+    position: absolute;
+    margin-block-start: 7px;
+}

@@ -38,7 +38,7 @@ componentDidMount(){
           <Header><NavBar /></Header>
           <Content>
           <Switch>
-          {this.props.pileToggleStatus? <Route path='/gem' render={() => <HiddenGem/>} /> : null}
+          {this.props.pileToggleStatus?  <HiddenGem/> : null}
           </Switch>
           <PlaylistContainer />
           <PlaylistIndex />

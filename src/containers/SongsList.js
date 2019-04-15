@@ -6,7 +6,7 @@ import { List } from 'antd'
 class SongsList extends React.Component {
   render(){
     return(
-      <List>
+      <List bordered = {true}>
           {this.props.songs.items.map(song => <SongItem key={song.id} song={song}/>)}
       </List>
     )

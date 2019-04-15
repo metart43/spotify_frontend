@@ -19,7 +19,7 @@ class SpotifyPlayer extends Component {
     return (
   <React.Fragment>
     <Row type="flex" justify="center" align="middle">
-      {this.props.currentSong? this.props.currentSong.item.name : console.log('no song')}
+      {this.props.currentSong? `${this.props.currentSong.item.name} - ${this.props.currentSong.item.artists[0].name} `: console.log('no song')}
       </Row>
       <Row type="flex" justify="center" align="middle">
   <Col><List.Item></List.Item><Button className={'playerButtons'} icon={'backward'} size={'large'} shape={'circle'}
