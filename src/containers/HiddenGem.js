@@ -6,12 +6,13 @@ import {List, Avatar, Button, Typography, Row, Col} from 'antd'
 import GemItem from '../components/GemItem'
 
 
-const {Title} =  Typography
+const {Title, Text} =  Typography
 
 class HiddenGem extends React.Component {
   render(){
     return(
       <React.Fragment>
+        <div id={'hiddenGem'}>
         <Row type="flex" justify="space-around" align="middle">
           <Col span={10}></Col>
           <Col span={4}><Title level={3}>{this.props.hiddenGem? this.props.hiddenGem.name : console.log('no name')}
@@ -21,10 +22,11 @@ class HiddenGem extends React.Component {
           <Col span={8}></Col>
           <Col span={4}></Col>
           <Col span={12}><List>
-            {this.props.gemSongs.length > 0 ? this.props.gemSongs.map(song => <GemItem key={song.id} song={song}/>) : console.log('no songs')}
+            {this.props.gemSongs.length > 0 ? this.props.gemSongs.map(song => <GemItem key={song.id} song={song}/>) : <Text strong> You do not have any gems:( </Text>}
           </List>
           </Col>
           </Row>
+        </div>
       </React.Fragment>
     )
   }

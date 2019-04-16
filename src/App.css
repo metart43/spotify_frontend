@@ -64,3 +64,10 @@
 #playerBottomRow{
   margin-block-end: 20px;
 }
+#hiddenGem{
+  background-color: white;
+}
+
+.ant-list-empty-text{
+  margin-left: -400px;
+}

@@ -46,7 +46,7 @@ class SpotifyPlayer extends Component {
   </Row>
   <Row>
     <Col span={4}></Col>
-    <Col span={6} id={'playerBottomRow'}>{this.props.currentSong? this.props.currentSong.item.name : null}</Col>
+    <Text secondary><Col span={6} id={'playerBottomRow'}>{this.props.currentSong? this.props.currentSong.item.name : null}</Col></Text>
   </Row>
       </div>
 </React.Fragment>
