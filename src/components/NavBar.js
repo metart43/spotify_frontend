@@ -13,7 +13,9 @@ const NavBar = (props) => {
     <React.Fragment>
       <Menu mode="horizontal">
       <Menu.Item>
+        <NavLink to='/playlists'>
       <Title level={2} id={'title'}>Hidden Gem</Title>
+      </NavLink>
         </Menu.Item>
       <Menu.Item style={{float: "right"}}>  {props.user? <Text type="secondary"> <strong> {props.user.display_name} </strong></Text> : <Button type="primary" ><a href='http://localhost:3000/api/v1/login'> Sign In <i className="fas fa-headphones-alt"> </i> </a></Button>}
       </Menu.Item>

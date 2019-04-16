@@ -5,7 +5,9 @@ import {connect} from 'react-redux'
 import {playingTrack,
   fetchingCurrentSong,
   startPlayback,
-  startPlayerActivity} from '../redux/actions'
+  startPlayerActivity,
+  fetchArtist} from '../redux/actions'
+import { NavLink, Redirect} from 'react-router-dom';
 import {addSongToPile} from '../redux/backendActions'
 
 const SongItem = (props) => {
@@ -22,6 +24,9 @@ const SongItem = (props) => {
         }></Button>
         &nbsp;&nbsp;
         <Button size={'small'} shape={"circle"} onClick={() => props.addSongToPile(props.user, props.hiddenGem, props.song)}> <i class="far fa-gem"></i></Button>
+        <NavLink to={'/artist'}>
+        <Button  size={'small'} shape={"circle"} onClick={() => props.fetchArtist(props.token, props.song.track.artists[0].id)}><i class="fas fa-guitar"></i></Button>
+        </NavLink>
       </List.Item>
     </React.Fragment>
   )
@@ -41,7 +46,8 @@ const mapDispatchToProps = dispatch => ({
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
   startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
   fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
-  addSongToPile:(user, gem, song) => dispatch(addSongToPile(user, gem, song))
+  addSongToPile: (user, gem, song) => dispatch(addSongToPile(user, gem, song)),
+  fetchArtist: (token, artistId) => dispatch(fetchArtist(token, artistId))
 
 })
 

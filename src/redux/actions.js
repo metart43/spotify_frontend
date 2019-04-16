@@ -16,7 +16,9 @@ function accessingToken(token){
 function fetchedSongs(songs){
   return {type:"FETCHED_SONGS", songs}
 }
-
+function fetchedArtist(artist){
+  return {type:"FETCHED_ARTIST", artist}
+}
 function setUser(user){
   return {type:"USER_PROFILE", user}
 }
@@ -194,6 +196,18 @@ function playPrevious(token){
     })
   }
 }
+
+function fetchArtist(token, artistId){
+  return (dispatch) => {
+    fetch(`https://api.spotify.com/v1/artists/${artistId}`,{
+      headers: {"Accept" : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`}
+      })
+    .then(res => res.json())
+    .then(artist => dispatch(fetchedArtist(artist)))
+  }
+}
 export {accessingToken,
   fetchingPlaylist,
   selectPlaylist,
@@ -209,4 +223,5 @@ export {accessingToken,
   playPrevious,
   settingUser,
   playResume,
-  playingTrackFromGemItem}
+  playingTrackFromGemItem,
+  fetchArtist}

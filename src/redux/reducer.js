@@ -125,6 +125,15 @@ const modalReducer = (state = false, action) => {
   }
 }
 
+const artistReducer = (state = null, action) => {
+  switch (action.type) {
+    case "FETCHED_ARTIST":
+      return action.artist
+    default:
+      return state
+  }
+}
+
 const rootReducer = combineReducers({
   playlists: playlistsReducer,
   token: authReducer,
@@ -137,7 +146,8 @@ const rootReducer = combineReducers({
   hiddenGem: hiddenGemReducer,
   gemSongs: gemSongsReducer,
   pileToggleStatus: toggleReducer,
-  playlistModalStatus: modalReducer
+  playlistModalStatus: modalReducer,
+  artist: artistReducer
 });
 
 export default rootReducer;

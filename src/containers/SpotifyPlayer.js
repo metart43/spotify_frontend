@@ -17,7 +17,6 @@ const { Text } = Typography
 class SpotifyPlayer extends Component {
 
   render(){
-    debugger
     return (
   <React.Fragment>
     <div id={'spotifyPlayer'}>

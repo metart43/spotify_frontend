@@ -6,6 +6,7 @@ import PlaylistIndex from '../src/containers/PlaylistIndex'
 import PlaylistContainer from '../src/containers/PlaylistContainer'
 import SpotifyPlayer from '../src/containers/SpotifyPlayer'
 import HiddenGem from '../src/containers/HiddenGem'
+import ArtistShowPage from '../src/components/ArtistShowPage'
 import {connect} from 'react-redux'
 import {Route, Redirect, Switch } from 'react-router-dom'
 import {accessingToken, fetchingPlaylist, settingUser} from '../src/redux/actions'
@@ -39,9 +40,10 @@ componentDidMount(){
           <Content>
           <Switch>
           {this.props.pileToggleStatus?  <HiddenGem/> : null}
+          {this.props.artist? <Route path='/artist' render={()=> <ArtistShowPage/>} /> : null}
+          <Route path='/playlists' render={() => <PlaylistIndex />} />
           </Switch>
           <PlaylistContainer />
-          <PlaylistIndex />
           </Content>
           <SpotifyPlayer id={"spotifyPlayer"}/>
         </Layout>
@@ -54,7 +56,8 @@ const mapStateToProps = state => {
     playlist: state.playlist,
     user: state.user,
     hiddenGem: state.hiddenGem,
-    pileToggleStatus: state.pileToggleStatus
+    pileToggleStatus: state.pileToggleStatus,
+    artist: state.artist
   }
 }
 
