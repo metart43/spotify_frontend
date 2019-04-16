@@ -11,17 +11,6 @@ import {Button, Modal} from 'antd'
 const PlaylistCard = (props) => {
   return (
     <React.Fragment>
-    <Button shape='circle' size='small' onClick={
-      () => {props.selectPlaylist(props.pl);
-            props.fetchingSongs(props.token, props.pl.id);
-            props.showPlaylistModal(props.playlistModalStatus)}}>
-    <i className="far fa-eye"></i>
-    </Button>
-    <Button size='small' shape='circle' icon='play-circle'
-    onClick={() => {props.playingPlaylist(props.token, props.pl);
-    props.startPlayback(props.playbackStatus);
-    setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}}>
-    </Button>
     </React.Fragment>
   )
 }

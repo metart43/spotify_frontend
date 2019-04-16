@@ -38,8 +38,8 @@ componentDidMount(){
         <Layout className="App">
           <Header><NavBar /></Header>
           <Content>
+            {this.props.pileToggleStatus?  <HiddenGem/> : null}
           <Switch>
-          {this.props.pileToggleStatus?  <HiddenGem/> : null}
           {this.props.artist? <Route path='/artist' render={()=> <ArtistShowPage/>} /> : null}
           <Route path='/playlists' render={() => <PlaylistIndex />} />
           </Switch>

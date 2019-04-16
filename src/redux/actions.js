@@ -46,6 +46,10 @@ function setGemSongs(songs){
   return {type:'FETCHED_GEM_SONG', songs}
 }
 
+function top5Songs(songs){
+  return {type: 'FETCHED_TOP_5_SONGS', songs}
+}
+
 function fetchingUserInfo(user) {
   return (dispatch) => {
     fetch(`http://localhost:3000/api/v1/users/${user.id}`)
@@ -124,6 +128,7 @@ function pausingPlaybackFetch(token){
 }
 
 function playingTrack(token, song){
+  debugger
   return (dispatch) => {
     console.log("step 1")
     fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
@@ -208,6 +213,19 @@ function fetchArtist(token, artistId){
     .then(artist => dispatch(fetchedArtist(artist)))
   }
 }
+
+function getTopSongs(token, artistId){
+  return (dispatch) => {
+  fetch(`https://api.spotify.com/v1/artists/${artistId}/top-tracks?country=US`,{
+    headers: {"Accept" : "application/json",
+    "Content-Type" : "application/json",
+    "Authorization" : `Bearer ${token}`}
+    })
+  .then(res => res.json())
+  .then(array => dispatch(top5Songs(array.tracks.slice(0,5))))
+  }
+}
+
 export {accessingToken,
   fetchingPlaylist,
   selectPlaylist,
@@ -224,4 +242,5 @@ export {accessingToken,
   settingUser,
   playResume,
   playingTrackFromGemItem,
-  fetchArtist}
+  fetchArtist,
+  getTopSongs}

@@ -45,6 +45,15 @@ const songReducer = (state = null, action) => {
   }
 }
 
+const top5Songsreducer = (state = null, action) => {
+    switch (action.type) {
+    case "FETCHED_TOP_5_SONGS":
+    return action.songs
+    default:
+    return state
+  }
+}
+
 const gemSongsReducer = (state = [], action) => {
   switch (action.type) {
     case "FETCHED_GEM_SONG":
@@ -147,7 +156,8 @@ const rootReducer = combineReducers({
   gemSongs: gemSongsReducer,
   pileToggleStatus: toggleReducer,
   playlistModalStatus: modalReducer,
-  artist: artistReducer
+  artist: artistReducer,
+  top5Songs: top5Songsreducer
 });
 
 export default rootReducer;
