@@ -36,7 +36,6 @@ return (dispatch) => {
 }
 
 function removerSongFromPile(song){
-  debugger
   return (dispatch) => {
     fetch(`http://localhost:3000/songs/${song.id}`, {
       method: 'DELETE'
@@ -46,15 +45,16 @@ function removerSongFromPile(song){
 }
 
 function addSongToPile(user, gem, song){
+  debugger
   return (dispatch) => {
     fetch('http://localhost:3000/songs', {
       method: 'POST',
       headers: {"Content-type" : 'application/json'},
       body: JSON.stringify({user: {user_id : user.id},
         gem: {hidden_gem_id: gem.id},
-        song: {artist: song.track.artists[0].name,
-        name: song.track.name,
-        song_uri: song.track.uri}})
+        song: {artist: song.artists[0].name,
+        name: song.name,
+        song_uri: song.uri}})
     })
     .then(res => res.json())
     .then(song => dispatch(addGemSongs(song)))

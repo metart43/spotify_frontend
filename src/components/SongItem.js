@@ -23,7 +23,7 @@ const SongItem = (props) => {
             setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}
         }></Button>
         &nbsp;&nbsp;
-        <Button size={'small'} shape={"circle"} onClick={() => props.addSongToPile(props.user, props.hiddenGem, props.song)}> <i class="far fa-gem"></i></Button>
+        <Button size={'small'} shape={"circle"} onClick={() => props.addSongToPile(props.user, props.hiddenGem, props.song.track)}> <i class="far fa-gem"></i></Button>
         <NavLink to={'/artist'}>
         <Button  size={'small'} shape={"circle"} onClick={() => props.fetchArtist(props.token, props.song.track.artists[0].id)}><i class="fas fa-guitar"></i></Button>
         </NavLink>

@@ -143,6 +143,15 @@ const artistReducer = (state = null, action) => {
   }
 }
 
+const similiarArtistReducer = (state = null, action) => {
+  switch (action.type) {
+    case "SIMILIAR_ARTIST":
+    return action.artists
+    default:
+    return state
+  }
+}
+
 const rootReducer = combineReducers({
   playlists: playlistsReducer,
   token: authReducer,
@@ -157,7 +166,8 @@ const rootReducer = combineReducers({
   pileToggleStatus: toggleReducer,
   playlistModalStatus: modalReducer,
   artist: artistReducer,
-  top5Songs: top5Songsreducer
+  top5Songs: top5Songsreducer,
+  similiarArtists: similiarArtistReducer
 });
 
 export default rootReducer;
