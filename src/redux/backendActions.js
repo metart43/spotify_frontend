@@ -3,6 +3,10 @@ function getHiddenGem(hiddenGem){
   return {type: 'HIDDEN_GEM', hiddenGem}
 }
 
+function togglePileAction(status){
+  return {type:'PILE_ACTIVATE', status}
+}
+
 function removeGem(){
   return {type: 'REMOVE_HIDDEN_GEM'}
 }
@@ -23,7 +27,7 @@ function addGemSongs(song){
   return {type: 'ADD_GEM_SONGS', song}
 }
 
-function createHiddenGem (props) {
+function createHiddenGem (props, status) {
 return (dispatch) => {
   fetch('http://localhost:3000/hidden_gems',{
     method: 'POST',
@@ -31,7 +35,8 @@ return (dispatch) => {
     body: JSON.stringify({user: {user_id : props.id}})
     })
     .then(res => res.json())
-    .then(hiddenGem => dispatch(getHiddenGem(hiddenGem)))
+    .then(hiddenGem => dispatch(getHiddenGem(hiddenGem)),
+                       dispatch(togglePileAction(status)))
   }
 }
 

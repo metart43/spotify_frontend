@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Layout, Menu, Typography} from 'antd'
+import {Button, Layout, Menu, Typography, message} from 'antd'
 import {createHiddenGem} from '../redux/backendActions'
 import {togglePileAction} from '../redux/toggleActions'
 import {connect} from 'react-redux'
@@ -7,6 +7,9 @@ import {NavLink} from 'react-router-dom'
 
 const { Header } = Layout;
 const { Title, Text } = Typography
+const success = () => {
+  message.success('This is a message of success');
+};
 
 const NavBar = (props) => {
   return (
@@ -21,7 +24,7 @@ const NavBar = (props) => {
       </Menu.Item>
       <Menu.Item style={{float: "right"}}>
         {props.hiddenGem ? <Button onClick={() => {props.togglePileAction(props.pileToggleStatus)}}> {props.pileToggleStatus ? 'Hide': 'Show'}</Button> :
-        <Button onClick={() => {props.createHiddenGem(props.user)}}>Make A Pile</Button>}
+        <Button onClick={() => {props.createHiddenGem(props.user, props.pileToggleStatus); message.success("You have created a Gem's pile. Go ahead and add your gems!")}}>Make A Pile</Button>}
         </Menu.Item>
         </Menu>
       </React.Fragment>
@@ -37,7 +40,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    createHiddenGem: (props) => dispatch(createHiddenGem(props)),
+    createHiddenGem: (props, status) => dispatch(createHiddenGem(props, status)),
     togglePileAction: (status) => dispatch(togglePileAction(status))
 })
 

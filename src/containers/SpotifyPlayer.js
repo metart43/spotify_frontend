@@ -18,12 +18,14 @@ class SpotifyPlayer extends Component {
 
   render(){
     return (
-  <React.Fragment>
-    <div id={'spotifyPlayer'}>
-    <Row >
+    <div id={"spotifyPlayer"}>
+    <Row>
       <Col span={2} offset={2}>{this.props.currentSong? <img className={'playerThumbnail'} src={this.props.currentSong.item.album.images[0].url}></img> : null}</Col>
-    <Text strong><Col span={6}>{this.props.currentSong? `${this.props.currentSong.item.artists[0].name}`: null}</Col></Text>
-        <Col span={12}>
+    <Col span={6}>
+      <Text strong><p>{this.props.currentSong? `${this.props.currentSong.item.artists[0].name}`: null}</p></Text>
+      <p><Text secondary>{this.props.currentSong? this.props.currentSong.item.name : null}</Text></p>
+    </Col>
+      <Col span={8}>
               <Button className={'playerButtons'} icon={'backward'} size={'large'} shape={'circle'}
           onClick={() =>
           {this.props.playPrevious(this.props.token);
@@ -43,12 +45,7 @@ class SpotifyPlayer extends Component {
           setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}/>
         </Col>
   </Row>
-  <Row>
-    <Col span={4}></Col>
-    <Text secondary><Col span={6} id={'playerBottomRow'}>{this.props.currentSong? this.props.currentSong.item.name : null}</Col></Text>
-  </Row>
-      </div>
-</React.Fragment>
+  </div>
     )
   }
 }
@@ -74,3 +71,9 @@ const mapDispatchToProps = dispatch => ({
 
 export default connect(mapStateToProps,mapDispatchToProps)(SpotifyPlayer)
 // {this.props.currentSong? <img className={'playerThumbnail'} src={this.props.currentSong.item.album.images[0].url}></img> : null}</Col>
+
+
+// <Row>
+//   <Col span={4}></Col>
+//   <Text secondary><Col span={6} id={'playerBottomRow'}>{this.props.currentSong? this.props.currentSong.item.name : null}</Col></Text>
+// </Row>

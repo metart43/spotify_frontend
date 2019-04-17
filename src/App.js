@@ -45,7 +45,7 @@ componentDidMount(){
           </Switch>
           <PlaylistContainer />
           </Content>
-          <SpotifyPlayer id={"spotifyPlayer"}/>
+          {this.props.user? <SpotifyPlayer id={"spotifyPlayer"}/> : null}
         </Layout>
     );
   }

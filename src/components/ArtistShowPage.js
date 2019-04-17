@@ -7,7 +7,7 @@ import {getTopSongs,
         getSimiliarArtist,
         fetchArtist} from '../redux/actions'
 import {addSongToPile} from '../redux/backendActions'
-import {Card, Row, Modal, Button, List, Avatar} from 'antd'
+import {Card, Row, Modal, Button, List, Avatar, Col, Layout} from 'antd'
 import Top5SongsModal from './Top5SongsModal'
 
 const {Meta} = Card
@@ -49,14 +49,16 @@ class ArtistShowPage extends React.Component {
 
 render(){
   return(
-    <Row type='flex' justify='center'>
+    <Layout style={{height: '100vh', background: 'white'}}>
+    <Row type='flex' justify='center' align="middle">
+      <Col span={4}>
     <Card size='small' cover={<img alt='artistImage' src={this.props.artist.images[1].url} />}
       actions={[<Button onClick={() => {
         this.props.getTopSongs(this.props.token, this.props.artist.id);
         this.showModal()} }>Top 5</Button>,
         <Button onClick={() => {
         this.showSimiliarModal();
-        this.props.getSimiliarArtist(this.props.token, this.props.artist.id)}}> Similiar Artist</Button>]}>
+        this.props.getSimiliarArtist(this.props.token, this.props.artist.id)}}> Similiar</Button>]}>
     <Meta
       title={this.props.artist.name}
       description={this.props.artist.genres[0]}
@@ -114,7 +116,9 @@ render(){
         )}
         /> : null}
     </Modal>
+    </Col>
     </Row>
+  </Layout>
   )
   }
 }
