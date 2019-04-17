@@ -112,7 +112,6 @@ function fetchingSongs(token, playlistId) {
   }
 }
 
-
  function fetchingCurrentSong(token){
    console.log('step2');
   return (dispatch) => {
@@ -123,12 +122,8 @@ function fetchingSongs(token, playlistId) {
     "Authorization" : `Bearer ${token}`}
   })
     .then(res => res.json())
-    .then(data => dispatch(getCurrentSong(data)))
+    .then(data => {data.is_playing ? dispatch(startPlayback()) : dispatch(pausePlayback()) ; dispatch(getCurrentSong(data))})
   }
-}
-
-function phill(){
-  
 }
 
 function pausingPlaybackFetch(token){
