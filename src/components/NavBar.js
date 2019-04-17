@@ -32,7 +32,7 @@ const NavBar = (props) => {
       </Menu.Item>
       <Menu.Item style={{float: "right"}}>
         {props.hiddenGem ? <Button onClick={() => {props.togglePileAction(props.pileToggleStatus)}}> {props.pileToggleStatus ? 'Hide': 'Show'}</Button> :
-        <Button onClick={() => {props.createHiddenGem(props.user, props.pileToggleStatus); message.success("You have created a Gem's pile. Go ahead and add your gems!")}}>Make A Pile</Button>}
+        props.user ? <Button onClick={() => {props.createHiddenGem(props.user, props.pileToggleStatus); message.success("You have created a Gem's pile. Go ahead and add your gems!")}}>Make A Pile</Button> : null}
         </Menu.Item>
         </Menu>
       </React.Fragment>

@@ -10,15 +10,7 @@ const {Title, Text} =  Typography
 
 
 class HiddenGem extends React.Component {
-  confirm(e) {
-    console.log(e);
-    message.success('Click on Yes');
-  }
 
-  cancel(e) {
-    console.log(e);
-    message.error('Click on No');
-  }
   render(){
     return(
       <React.Fragment>
@@ -26,8 +18,8 @@ class HiddenGem extends React.Component {
         <Row type="flex" justify="space-around" align="middle">
           <Col span={8}></Col>
           <Col span={8}><Title level={3}>{this.props.hiddenGem? this.props.hiddenGem.name : console.log('no name')}
-            <Popconfirm title="Are you sure delete this task?" onConfirm={this.confirm} onCancel={this.cancel} okText="Yes" cancelText="No">
-              <Button id={'deleteButton'} type={'circle'} size={'small'}icon={'delete'} onClick={() => {this.props.deleteHiddenGem(this.props.hiddenGem)}}></Button>
+            <Popconfirm title="Wanna scrap your pile?" onConfirm={() => {message.warning('You scraped it!'); this.props.deleteHiddenGem(this.props.hiddenGem)}} onCancel={() => message.success('Keep Geming!')} okText="Scrap" cancelText="Nah">
+              <Button id={'deleteButton'} type={'circle'} size={'small'}icon={'delete'} ></Button>
             </Popconfirm>
             </Title>
           </Col>

@@ -13,6 +13,7 @@
 
 .playerButtons{
   border-color: white;
+  margin-top: 10px;
 }
 
 .currentTrack{
@@ -56,6 +57,7 @@
 #playerBottomRow{
   margin-block-end: 20px;
 }
+
 #hiddenGem{
   background-color: white;
 }
@@ -68,6 +70,9 @@
   max-height: 150px;
 }
 
+#deviceButton {
+  margin-top: 10px;
+}
 .ant-list-empty-text{
   margin-left: -400px;
 }

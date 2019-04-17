@@ -81,7 +81,7 @@ class SpotifyPlayer extends Component {
           <Dropdown placement="topCenter" onFocus={() => this.getAvaliableDevices(this.props.token, this.props.user)} overlay={<Menu>
             {this.state.devices.map(device => <Menu.Item onClick={() => this.transferPlayback(this.props.token, device.id)}>{device.name}</Menu.Item> )}
           </Menu>}>
-          <Button shape={'circle'} size={'small'} icon={"sync"}/>
+          <Button id={"deviceButton"} shape={'circle'} size={'small'} icon={"sync"}/>
           </Dropdown>
   </Col>
   </Row>
