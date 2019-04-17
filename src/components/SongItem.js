@@ -11,7 +11,6 @@ import { NavLink, Redirect} from 'react-router-dom';
 import {addSongToPile} from '../redux/backendActions'
 
 const SongItem = (props) => {
-  debugger
   return(
     <React.Fragment>
       <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}

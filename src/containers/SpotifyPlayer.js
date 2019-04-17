@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Col, Row, List, Layout, Typography} from 'antd'
+import {Button, Col, Row, List, Layout, Typography, Dropdown, Icon, Menu} from 'antd'
 import {connect} from 'react-redux'
 import {playingTrack,
   fetchingCurrentSong,
@@ -9,12 +9,45 @@ import {playingTrack,
   startPlayerActivity,
   playNext,
   playPrevious,
-  playResume} from '../redux/actions'
+  playResume,
+  getAvaliableDevices} from '../redux/actions'
 
 const { Footer } = Layout
 const { Text } = Typography
 
+
+
+
 class SpotifyPlayer extends Component {
+
+  constructor(){
+    super()
+    this.state = {
+      devices : []
+    }
+  }
+
+   getAvaliableDevices(token, user){
+      fetch(`https://api.spotify.com/v1/me/player/devices`, {
+        headers: {"Accept" : "application/json",
+        "Content-Type" : "application/json",
+        "Authorization" : `Bearer ${token}`}
+      })
+      .then(res => res.json())
+      .then(data => this.setState({
+        devices: data.devices}))
+    }
+
+    transferPlayback(token, deviceId){
+      fetch('https://api.spotify.com/v1/me/player',{
+        method: 'PUT',
+        headers: {"Accept" : "application/json",
+        "Content-Type" : "application/json",
+        "Authorization" : `Bearer ${token}`},
+        body: JSON.stringify({"device_ids": [`${deviceId}`]})
+      })
+      .then(res => console.log(res))
+    }
 
   render(){
     return (
@@ -44,6 +77,13 @@ class SpotifyPlayer extends Component {
         onClick={() => {this.props.playNext(this.props.token);
           setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}/>
         </Col>
+        <Col span={2}>
+          <Dropdown onFocus={() => this.getAvaliableDevices(this.props.token, this.props.user)} overlay={<Menu>
+            {this.state.devices.map(device => <Menu.Item onClick={() => this.transferPlayback(this.props.token, device.id)}>{device.name}</Menu.Item> )}
+          </Menu>}>
+          <Button shape={'circle'} icon={"sync"}/>
+          </Dropdown>
+  </Col>
   </Row>
   </div>
     )
@@ -70,10 +110,3 @@ const mapDispatchToProps = dispatch => ({
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(SpotifyPlayer)
-// {this.props.currentSong? <img className={'playerThumbnail'} src={this.props.currentSong.item.album.images[0].url}></img> : null}</Col>
-
-
-// <Row>
-//   <Col span={4}></Col>
-//   <Text secondary><Col span={6} id={'playerBottomRow'}>{this.props.currentSong? this.props.currentSong.item.name : null}</Col></Text>
-// </Row>

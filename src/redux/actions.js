@@ -23,6 +23,10 @@ function setUser(user){
   return {type:"USER_PROFILE", user}
 }
 
+function setUserDevices(devices){
+  return {type: "USER_DEVICES", devices}
+}
+
 function getCurrentSong(song) {
   return {type:"CURRENT_SONG", song}
 }
@@ -239,6 +243,8 @@ function getSimiliarArtist(token, artistId){
   .then(array => dispatch(setSimiliarArtist(array.artists.slice(0,5))))
   }
 }
+
+
 
 export {accessingToken,
   fetchingPlaylist,

@@ -7,9 +7,17 @@ import {NavLink} from 'react-router-dom'
 
 const { Header } = Layout;
 const { Title, Text } = Typography
-const success = () => {
-  message.success('This is a message of success');
-};
+
+function confirm(e) {
+  console.log(e);
+  message.success('Click on Yes');
+}
+
+function cancel(e) {
+  console.log(e);
+  message.error('Click on No');
+}
+
 
 const NavBar = (props) => {
   return (
