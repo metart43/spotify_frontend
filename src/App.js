@@ -40,9 +40,6 @@ componentDidMount(){
     if (prevProps.user != this.props.user ) {
       this.props.getAvaliableDevicesRedux(this.props.token, this.props.user)
     }
-    if (prevProps.devicesRedux != this.props.devicesRedux){
-      this.props.fetchingCurrentSong(this.props.token)
-    }
   }
 
   render() {
