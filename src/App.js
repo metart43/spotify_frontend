@@ -6,9 +6,11 @@ import PlaylistIndex from '../src/containers/PlaylistIndex'
 import PlaylistContainer from '../src/containers/PlaylistContainer'
 import SpotifyPlayer from '../src/containers/SpotifyPlayer'
 import HiddenGem from '../src/containers/HiddenGem'
+import SignIn from '../src/components/SignIn'
+import WelcomePage from '../src/components/WelcomePage'
 import ArtistShowPage from '../src/components/ArtistShowPage'
 import {connect} from 'react-redux'
-import {Route, Redirect, Switch } from 'react-router-dom'
+import {Route, Redirect, Switch} from 'react-router-dom'
 import {accessingToken, fetchingPlaylist, settingUser, fetchingCurrentSong, getAvaliableDevicesRedux} from '../src/redux/actions'
 import {Layout} from 'antd'
 
@@ -30,6 +32,7 @@ componentDidMount(){
     this.props.accessingToken(hashParams.access_token)
     this.props.fetchingPlaylist(hashParams.access_token)
     this.props.settingUser(hashParams.access_token)
+
   }
 }
 
@@ -51,6 +54,7 @@ componentDidMount(){
           <Switch>
           {this.props.artist? <Route path='/artist' render={()=> <ArtistShowPage/>} /> : null}
           <Route path='/playlists' render={() => <PlaylistIndex />} />
+          <Route path='/' render={() => <WelcomePage />} />
           </Switch>
           <PlaylistContainer />
           </Content>

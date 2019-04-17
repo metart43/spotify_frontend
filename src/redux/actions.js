@@ -62,6 +62,10 @@ function setAvaliableDevices(devices){
   return {type: 'USER_DEVICES', devices}
 }
 
+function setArtistsAlbums(albums){
+  return {type: "ARTIST_ALBUMS", albums}
+}
+
 function fetchingUserInfo(user) {
   return (dispatch) => {
     fetch(`http://localhost:3000/api/v1/users/${user.id}`)
@@ -187,6 +191,7 @@ function playingPlaylist(token, playlist){
   }
 }
 
+
 function playNext(token){
   return (dispatch) => {
   fetch(`https://api.spotify.com/v1/me/player/next?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d`,{
@@ -210,6 +215,18 @@ function playPrevious(token){
   }
 }
 
+function fetchArtistAlbums(token, artistId){
+  return (dispatch) => {
+    fetch(`	https://api.spotify.com/v1/artists/${artistId}/albums`, {
+      headers: {"Accept" : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`}
+    })
+    .then(res => res.json())
+    .then(data => dispatch(setArtistsAlbums(data.items.filter(item => item.album_group == "album").slice(0,5))))
+  }
+}
+
 function fetchArtist(token, artistId){
   return (dispatch) => {
     fetch(`https://api.spotify.com/v1/artists/${artistId}`,{
@@ -218,7 +235,8 @@ function fetchArtist(token, artistId){
       "Authorization" : `Bearer ${token}`}
       })
     .then(res => res.json())
-    .then(artist => dispatch(fetchedArtist(artist)))
+    .then(artist => dispatch(fetchedArtist(artist)),
+                    dispatch(fetchArtistAlbums(token, artistId)))
   }
 }
 
@@ -254,7 +272,7 @@ function getAvaliableDevicesRedux(token, user){
      "Authorization" : `Bearer ${token}`}
    })
    .then(res => res.json())
-   .then(data =>  dispatch(setAvaliableDevices(data.devices)))
+   .then(data => {data.error ? console.log('error') : dispatch(setAvaliableDevices(data.devices))})
  }
 }
 

@@ -161,6 +161,15 @@ const userDevicesReducer = (state = null, action) => {
   }
 }
 
+const artistAlbumsReducer = (state = null, action) => {
+  switch (action.type) {
+    case "ARTIST_ALBUMS":
+      return action.albums
+    default:
+    return state
+  }
+}
+
 const rootReducer = combineReducers({
   playlists: playlistsReducer,
   token: authReducer,
@@ -177,7 +186,8 @@ const rootReducer = combineReducers({
   artist: artistReducer,
   top5Songs: top5Songsreducer,
   similiarArtists: similiarArtistReducer,
-  devicesRedux: userDevicesReducer
+  devicesRedux: userDevicesReducer,
+  artistAlbums: artistAlbumsReducer
 });
 
 export default rootReducer;

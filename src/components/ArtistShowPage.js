@@ -5,10 +5,11 @@ import {getTopSongs,
         fetchingCurrentSong,
         startPlayback,
         getSimiliarArtist,
-        fetchArtist} from '../redux/actions'
+        fetchArtist,
+        playingPlaylist} from '../redux/actions'
 import {addSongToPile} from '../redux/backendActions'
 import {Card, Row, Modal, Button, List, Avatar, Col, Layout, message} from 'antd'
-import Top5SongsModal from './Top5SongsModal'
+import AlbumPage from './AlbumPage'
 
 const {Meta} = Card
 
@@ -118,6 +119,18 @@ render(){
     </Modal>
     </Col>
     </Row>
+    {this.props.artistAlbums? <Row gutter={16} id={'playListIndex'}justify="center" type='flex'>
+      {this.props.artistAlbums.map((album =><Col id={'cardColumn'} key={album.id} span={4}>
+      <Card hoverable size="small" title={album.name}
+      cover={<img alt="example" src={album.images[0].url} />}
+       className='playlistCard'
+       actions={[<Button size='small' shape='circle' icon='play-circle'
+       onClick={() => {this.props.playingPlaylist(this.props.token, album);
+       this.props.startPlayback(this.props.playbackStatus);
+       setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}>
+     </Button>]}></Card>
+      </Col>))}
+    </Row> : null}
   </Layout>
   )
   }
@@ -130,7 +143,8 @@ const mapStateToProps = state => ({
   artist: state.artist,
   top5Songs: state.top5Songs,
   playbackStatus: state.playbackStatus,
-  similiarArtists: state.similiarArtists
+  similiarArtists: state.similiarArtists,
+  artistAlbums: state.artistAlbums
 })
 
 const mapDispatchToProps = dispatch => ({
@@ -140,7 +154,8 @@ const mapDispatchToProps = dispatch => ({
   fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
   getSimiliarArtist: (token, artistId) => dispatch(getSimiliarArtist(token, artistId)),
   fetchArtist: (token, artistId) => dispatch(fetchArtist(token, artistId)),
-  addSongToPile: (user, gem, song) => dispatch(addSongToPile(user, gem, song))
+  addSongToPile: (user, gem, song) => dispatch(addSongToPile(user, gem, song)),
+  playingPlaylist: (token, album) => dispatch(playingPlaylist(token, album))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistShowPage)
