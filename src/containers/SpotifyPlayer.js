@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Col, Row, List, Layout, Typography, Dropdown, Icon, Menu} from 'antd'
 import {connect} from 'react-redux'
-import {playingTrack,
+import {
   fetchingCurrentSong,
   pausingPlaybackFetch,
   pausePlayback,
@@ -78,10 +78,10 @@ class SpotifyPlayer extends Component {
           setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}/>
         </Col>
         <Col span={2}>
-          <Dropdown onFocus={() => this.getAvaliableDevices(this.props.token, this.props.user)} overlay={<Menu>
+          <Dropdown placement="topCenter" onFocus={() => this.getAvaliableDevices(this.props.token, this.props.user)} overlay={<Menu>
             {this.state.devices.map(device => <Menu.Item onClick={() => this.transferPlayback(this.props.token, device.id)}>{device.name}</Menu.Item> )}
           </Menu>}>
-          <Button shape={'circle'} icon={"sync"}/>
+          <Button shape={'circle'} size={'small'} icon={"sync"}/>
           </Dropdown>
   </Col>
   </Row>
@@ -94,14 +94,13 @@ const mapStateToProps = state => ({
   token: state.token,
   currentSong: state.currentSong,
   playbackStatus: state.playbackStatus,
-  playerStatus: state.playerStatus
+  playerStatus: state.playerStatus,
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
   pausingPlaybackFetch: (token) => dispatch(pausingPlaybackFetch(token)),
   pausePlayback: (playbackStatus) => dispatch(pausePlayback(playbackStatus)),
-  playingTrack: (token, song) => dispatch(playingTrack(token, song)),
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
   startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
   playNext: (token) => dispatch(playNext(token)),

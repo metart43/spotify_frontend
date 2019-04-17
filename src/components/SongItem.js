@@ -1,6 +1,6 @@
 import React from 'react';
 import {List} from 'antd'
-import {Button, Avatar} from 'antd'
+import {Button, Avatar, message} from 'antd'
 import {connect} from 'react-redux'
 import {playingTrack,
   fetchingCurrentSong,
@@ -21,9 +21,12 @@ const SongItem = (props) => {
         }></Button>,
         <Button size={'small'}
                 shape={"circle"}
-                onClick={() => props.addSongToPile(props.user, props.hiddenGem, props.song.track)}> <i class="far fa-gem"></i></Button>,
+                onClick={props.hiddenGem? () => {props.addSongToPile(props.user, props.hiddenGem, props.song.track); message.success(`Song ${props.song.track.name} by has been added to your pile`);} : () => message.error('Make a Pile First')}>
+                <i class="far fa-gem"></i>
+        </Button>,
                 <NavLink to={'/artist'}>
-                <Button  size={'small'} onClick={() => props.fetchArtist(props.token, props.song.track.artists[0].id)}>more</Button>
+        <Button  size={'small'} onClick={() => props.fetchArtist(props.token, props.song.track.artists[0].id)}>more
+        </Button>
                 </NavLink>]}>
         <List.Item.Meta
         avatar={<Avatar src={props.song.track.album.images[0].url} />}

@@ -152,7 +152,7 @@ const similiarArtistReducer = (state = null, action) => {
   }
 }
 
-const userDevicesReducer = (state = [], action) => {
+const userDevicesReducer = (state = null, action) => {
   switch (action.type) {
     case "USER_DEVICES":
     return action.devices
@@ -177,7 +177,7 @@ const rootReducer = combineReducers({
   artist: artistReducer,
   top5Songs: top5Songsreducer,
   similiarArtists: similiarArtistReducer,
-  devices: userDevicesReducer
+  devicesRedux: userDevicesReducer
 });
 
 export default rootReducer;

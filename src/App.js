@@ -9,7 +9,7 @@ import HiddenGem from '../src/containers/HiddenGem'
 import ArtistShowPage from '../src/components/ArtistShowPage'
 import {connect} from 'react-redux'
 import {Route, Redirect, Switch } from 'react-router-dom'
-import {accessingToken, fetchingPlaylist, settingUser} from '../src/redux/actions'
+import {accessingToken, fetchingPlaylist, settingUser, fetchingCurrentSong, getAvaliableDevicesRedux} from '../src/redux/actions'
 import {Layout} from 'antd'
 
 const {Header, Content, Footer} = Layout
@@ -33,6 +33,15 @@ componentDidMount(){
   }
 }
 
+  componentDidUpdate(prevProps){
+    if (prevProps.user != this.props.user ) {
+      this.props.getAvaliableDevicesRedux(this.props.token, this.props.user)
+    }
+    if (prevProps.devicesRedux != this.props.devicesRedux){
+      this.props.fetchingCurrentSong(this.props.token)
+    }
+  }
+
   render() {
     return (
         <Layout className="App">
@@ -55,9 +64,11 @@ const mapStateToProps = state => {
   return {
     playlist: state.playlist,
     user: state.user,
+    devicesRedux: state.devicesRedux,
     hiddenGem: state.hiddenGem,
     pileToggleStatus: state.pileToggleStatus,
-    artist: state.artist
+    artist: state.artist,
+    token: state.token
   }
 }
 
@@ -65,7 +76,9 @@ const mapDispatchToProps = dispatch => {
   return {
     accessingToken: (token) => dispatch(accessingToken(token)),
     fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token)),
-    settingUser: (token) => dispatch(settingUser(token))
+    settingUser: (token) => dispatch(settingUser(token)),
+    fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
+    getAvaliableDevicesRedux: (token, user) => dispatch(getAvaliableDevicesRedux(token, user))
   }
 }
 

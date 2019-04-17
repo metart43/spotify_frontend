@@ -7,7 +7,7 @@ import {getTopSongs,
         getSimiliarArtist,
         fetchArtist} from '../redux/actions'
 import {addSongToPile} from '../redux/backendActions'
-import {Card, Row, Modal, Button, List, Avatar, Col, Layout} from 'antd'
+import {Card, Row, Modal, Button, List, Avatar, Col, Layout, message} from 'antd'
 import Top5SongsModal from './Top5SongsModal'
 
 const {Meta} = Card
@@ -83,7 +83,7 @@ render(){
         }></Button>,
       <Button size={'small'}
               shape={"circle"}
-              onClick={() => this.props.addSongToPile(this.props.user, this.props.hiddenGem, item)}> <i class="far fa-gem"></i></Button>]}>
+              onClick={this.props.hiddenGem? () => {this.props.addSongToPile(this.props.user, this.props.hiddenGem, item); message.success(`Song ${item.name} has been added to your pile`);} : () => message.error('Make a Pile First')}> <i class="far fa-gem"></i></Button>]}>
         <List.Item.Meta
         avatar={<Avatar src={item.album.images[0].url} />}
         title={item.artists[0].name}

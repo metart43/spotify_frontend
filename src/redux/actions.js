@@ -58,6 +58,10 @@ function setSimiliarArtist(artists){
   return {type: 'SIMILIAR_ARTIST', artists}
 }
 
+function setAvaliableDevices(devices){
+  return {type: 'USER_DEVICES', devices}
+}
+
 function fetchingUserInfo(user) {
   return (dispatch) => {
     fetch(`http://localhost:3000/api/v1/users/${user.id}`)
@@ -112,14 +116,14 @@ function fetchingSongs(token, playlistId) {
  function fetchingCurrentSong(token){
    console.log('step2');
   return (dispatch) => {
-    fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+    fetch('https://api.spotify.com/v1/me/player', {
     method: 'GET',
     headers: {"Accept" : "application/json",
     "Content-Type" : "application/json",
     "Authorization" : `Bearer ${token}`}
   })
     .then(res => res.json())
-    .then(song => {dispatch(getCurrentSong(song))})
+    .then(data => dispatch(getCurrentSong(data)))
   }
 }
 
@@ -161,9 +165,9 @@ function playingTrackFromGemItem(token, song){
   }
 }
 
-function playResume(token){
+function playResume(token, device){
   return (dispatch) => {
-    fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+    fetch(`https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d`,{
       method: 'PUT',
       headers: {Accept : "application/json",
       "Content-Type" : "application/json",
@@ -187,7 +191,7 @@ function playingPlaylist(token, playlist){
 
 function playNext(token){
   return (dispatch) => {
-  fetch('https://api.spotify.com/v1/me/player/next?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+  fetch(`https://api.spotify.com/v1/me/player/next?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d`,{
     method: "POST",
     headers: {"Accept" : "application/json",
     "Content-Type" : "application/json",
@@ -244,6 +248,19 @@ function getSimiliarArtist(token, artistId){
   }
 }
 
+function getAvaliableDevicesRedux(token, user){
+   return (dispatch) => {
+   fetch(`https://api.spotify.com/v1/me/player/devices`, {
+     headers: {"Accept" : "application/json",
+     "Content-Type" : "application/json",
+     "Authorization" : `Bearer ${token}`}
+   })
+   .then(res => res.json())
+   .then(data =>  dispatch(setAvaliableDevices(data.devices)))
+ }
+}
+
+
 
 
 export {accessingToken,
@@ -264,4 +281,5 @@ export {accessingToken,
   playingTrackFromGemItem,
   fetchArtist,
   getTopSongs,
-  getSimiliarArtist}
+  getSimiliarArtist,
+  getAvaliableDevicesRedux}
