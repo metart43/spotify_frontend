@@ -61,20 +61,20 @@ class SpotifyPlayer extends Component {
       <Col span={8}>
               <Button className={'playerButtons'} icon={'backward'} size={'large'} shape={'circle'}
           onClick={() =>
-          {this.props.playPrevious(this.props.token);
+          {this.props.playPrevious(this.props.token, this.props.currentDevice);
           setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}/>
       {this.props.playbackStatus? <Button className={'playerButtons'} icon={'pause-circle'}
-          onClick={() => {this.props.pausingPlaybackFetch(this.props.token);
+          onClick={() => {this.props.pausingPlaybackFetch(this.props.token,  this.props.currentDevice);
           this.props.pausePlayback(this.props.playbackStatus);
           setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}} size={'large'} shape={'circle'}/>
         :
       <Button className={'playerButtons'} icon={'play-circle'}
-          onClick={() => {this.props.playResume(this.props.token);
+          onClick={() => {this.props.playResume(this.props.token,  this.props.currentDevice);
             this.props.startPlayback(this.props.playbackStatus);
             setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}
           size={'large'} shape={'circle'}/>}
       <Button className={'playerButtons'} icon={'forward'} size={'large'} shape={'circle'}
-        onClick={() => {this.props.playNext(this.props.token);
+        onClick={() => {this.props.playNext(this.props.token, this.props.currentDevice);
           setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}/>
         </Col>
         <Col span={2}>
@@ -95,17 +95,18 @@ const mapStateToProps = state => ({
   currentSong: state.currentSong,
   playbackStatus: state.playbackStatus,
   playerStatus: state.playerStatus,
+  currentDevice: state.currentDevice
 })
 
 const mapDispatchToProps = dispatch => ({
   fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
-  pausingPlaybackFetch: (token) => dispatch(pausingPlaybackFetch(token)),
+  pausingPlaybackFetch: (token, device) => dispatch(pausingPlaybackFetch(token, device)),
   pausePlayback: (playbackStatus) => dispatch(pausePlayback(playbackStatus)),
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
   startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
-  playNext: (token) => dispatch(playNext(token)),
-  playPrevious: (token) => dispatch(playNext(token)),
-  playResume: (token) => dispatch(playResume(token))
+  playNext: (token, device) => dispatch(playNext(token, device)),
+  playPrevious: (token, device) => dispatch(playPrevious(token, device)),
+  playResume: (token, device) => dispatch(playResume(token, device))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(SpotifyPlayer)

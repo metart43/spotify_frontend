@@ -28,7 +28,7 @@ class PlaylistIndex extends React.Component {
                 <i className="far fa-eye"></i>
                 </Button>,
                 <Button size='small' shape='circle' icon='play-circle'
-                onClick={() => {this.props.playingPlaylist(this.props.token, pl);
+                onClick={() => {this.props.playingPlaylist(this.props.token, pl, this.props.currentDevice);
                 this.props.startPlayback(this.props.playbackStatus);
                 setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}>
                 </Button>]}><PlaylistCard key={pl.id} pl={pl}/></Card></Col>))}
@@ -40,7 +40,8 @@ class PlaylistIndex extends React.Component {
 const mapStateToProps = state => ({
   token: state.token,
   playlists: state.playlists,
-  playlistModalStatus: state.playlistModalStatus
+  playlistModalStatus: state.playlistModalStatus,
+  currentDevice: state.currentDevice
 })
 
 const mapDispatchToProps = dispatch => {
@@ -49,7 +50,7 @@ const mapDispatchToProps = dispatch => {
     fetchingSongs: (token, playlistId) => dispatch(fetchingSongs(token, playlistId)),
     fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token)),
     showPlaylistModal: (status) => dispatch(showPlaylistModal(status)),
-    playingPlaylist: (token, playlist) => dispatch(playingPlaylist(token, playlist)),
+    playingPlaylist: (token, playlist, device) => dispatch(playingPlaylist(token, playlist, device)),
     startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
     fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token))
   }

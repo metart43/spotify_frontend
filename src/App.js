@@ -6,12 +6,11 @@ import PlaylistIndex from '../src/containers/PlaylistIndex'
 import PlaylistContainer from '../src/containers/PlaylistContainer'
 import SpotifyPlayer from '../src/containers/SpotifyPlayer'
 import HiddenGem from '../src/containers/HiddenGem'
-import SignIn from '../src/components/SignIn'
 import WelcomePage from '../src/components/WelcomePage'
 import ArtistShowPage from '../src/components/ArtistShowPage'
 import {connect} from 'react-redux'
 import {Route, Redirect, Switch} from 'react-router-dom'
-import {accessingToken, fetchingPlaylist, settingUser, fetchingCurrentSong, getAvaliableDevicesRedux} from '../src/redux/actions'
+import {accessingToken, fetchingPlaylist, settingUser, fetchingCurrentSong, getAvaliableDevicesRedux, setCurrentDevice} from '../src/redux/actions'
 import {Layout} from 'antd'
 
 const {Header, Content, Footer} = Layout
@@ -30,10 +29,9 @@ componentDidMount(){
     return
   } else {
     this.props.accessingToken(hashParams.access_token)
-    localStorage.setItem('token', hashParams.access_token)
+    this.props.setCurrentDevice()
     this.props.fetchingPlaylist(hashParams.access_token)
     this.props.settingUser(hashParams.access_token)
-
   }
 }
 
@@ -80,7 +78,8 @@ const mapDispatchToProps = dispatch => {
     fetchingPlaylist: (token) => dispatch(fetchingPlaylist(token)),
     settingUser: (token) => dispatch(settingUser(token)),
     fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
-    getAvaliableDevicesRedux: (token, user) => dispatch(getAvaliableDevicesRedux(token, user))
+    getAvaliableDevicesRedux: (token, user) => dispatch(getAvaliableDevicesRedux(token, user)),
+    setCurrentDevice: () => dispatch(setCurrentDevice())
   }
 }
 

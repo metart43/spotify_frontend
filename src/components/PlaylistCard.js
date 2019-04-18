@@ -1,7 +1,6 @@
 import React from 'react';
 import {selectPlaylist,
         fetchingSongs,
-        playingPlaylist,
         startPlayback,
         fetchingCurrentSong} from '../redux/actions'
 import {showPlaylistModal} from '../redux/modalActions'
@@ -24,7 +23,6 @@ const mapDispatchToProps = dispatch => {
   return {
     selectPlaylist: (playlist) => dispatch(selectPlaylist(playlist)),
     fetchingSongs: (token, playlistId) => dispatch(fetchingSongs(token, playlistId)),
-    playingPlaylist: (token, playlist) => dispatch(playingPlaylist(token, playlist)),
     startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
     fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
     showPlaylistModal: (status) => dispatch(showPlaylistModal(status))

@@ -62,6 +62,10 @@ function setAvaliableDevices(devices){
   return {type: 'USER_DEVICES', devices}
 }
 
+function setCurrentDevice(){
+  return {type: 'CURRENT_DEVICE', device : localStorage.getItem('_spharmony_device_id')}
+}
+
 function logoutUser(){
   return {type: 'LOG_OUT_USER'}
 }
@@ -134,9 +138,9 @@ function fetchingSongs(token, playlistId) {
   }
 }
 
-function pausingPlaybackFetch(token){
+function pausingPlaybackFetch(token, device){
   return (dispacth) => {
-    fetch('https://api.spotify.com/v1/me/player/pause?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+    fetch(`https://api.spotify.com/v1/me/player/pause?device_id=${device}`,{
       method: 'PUT',
       headers: {"Accept" : "application/json",
       "Content-Type" : "application/json",
@@ -145,10 +149,10 @@ function pausingPlaybackFetch(token){
   }
 }
 
-function playingTrack(token, song){
+function playingTrack(token, song, device){
   return (dispatch) => {
     console.log("step 1")
-    fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`,{
       method: 'PUT',
       headers: {Accept : "application/json",
       "Content-Type" : "application/json",
@@ -158,10 +162,10 @@ function playingTrack(token, song){
   }
 }
 
-function playingTrackFromGemItem(token, song){
+function playingTrackFromGemItem(token, song, device){
   return (dispatch) => {
     console.log("step 1")
-    fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`,{
       method: 'PUT',
       headers: {Accept : "application/json",
       "Content-Type" : "application/json",
@@ -173,7 +177,7 @@ function playingTrackFromGemItem(token, song){
 
 function playResume(token, device){
   return (dispatch) => {
-    fetch(`https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d`,{
+    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`,{
       method: 'PUT',
       headers: {Accept : "application/json",
       "Content-Type" : "application/json",
@@ -182,9 +186,9 @@ function playResume(token, device){
   }
 }
 
-function playingPlaylist(token, playlist){
+function playingPlaylist(token, playlist, device){
   return (dispatch) => {
-    fetch('https://api.spotify.com/v1/me/player/play?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`,{
       method: 'PUT',
       headers: {"Accept" : "application/json",
       "Content-Type" : "application/json",
@@ -196,9 +200,9 @@ function playingPlaylist(token, playlist){
 }
 
 
-function playNext(token){
+function playNext(token, device){
   return (dispatch) => {
-  fetch(`https://api.spotify.com/v1/me/player/next?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d`,{
+  fetch(`https://api.spotify.com/v1/me/player/next?device_id=${device}`,{
     method: "POST",
     headers: {"Accept" : "application/json",
     "Content-Type" : "application/json",
@@ -208,9 +212,9 @@ function playNext(token){
   }
 }
 
-function playPrevious(token){
+function playPrevious(token, device){
   return (dispatch) => {
-  fetch('https://api.spotify.com/v1/me/player/previous?device_id=472d89eb36f8c4c491860cb1473029fcc1838d4d',{
+  fetch(`https://api.spotify.com/v1/me/player/previous?device_id=${device}`,{
     method: "POST",
     headers: {"Accept" : "application/json",
     "Content-Type" : "application/json",
@@ -282,7 +286,6 @@ function getAvaliableDevicesRedux(token, user){
 
 
 
-
 export {accessingToken,
   fetchingPlaylist,
   selectPlaylist,
@@ -303,4 +306,5 @@ export {accessingToken,
   getTopSongs,
   getSimiliarArtist,
   getAvaliableDevicesRedux,
-  logoutUser}
+  logoutUser,
+  setCurrentDevice}

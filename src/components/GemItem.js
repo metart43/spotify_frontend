@@ -14,7 +14,7 @@ const GemItem = (props) => {
     <React.Fragment>
       <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
         onClick={() =>
-          {props.playingTrackFromGemItem(props.token, props.song);
+          {props.playingTrackFromGemItem(props.token, props.song, props.currentDevice);
           props.startPlayback(props.playbackStatus);
           setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}
       }></Button>,
@@ -29,12 +29,13 @@ const GemItem = (props) => {
 const mapStateToProps = state => ({
   token: state.token,
   playbackStatus: state.playbackStatus,
-  playerStatus: state.playerStatus
+  playerStatus: state.playerStatus,
+  currentDevice: state.currentDevice
 })
 
 const mapDispatchToProps = dispatch => ({
 
-  playingTrackFromGemItem: (token, song) => dispatch(playingTrackFromGemItem(token, song)),
+  playingTrackFromGemItem: (token, song, device) => dispatch(playingTrackFromGemItem(token, song, device)),
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
   startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
   fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),

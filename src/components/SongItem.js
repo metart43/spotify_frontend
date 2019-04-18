@@ -15,7 +15,7 @@ const SongItem = (props) => {
     <React.Fragment>
       <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
           onClick={() =>
-            {props.playingTrack(props.token, props.song);
+            {props.playingTrack(props.token, props.song, props.currentDevice);
             props.startPlayback(props.playbackStatus);
             setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}
         }></Button>,
@@ -43,12 +43,13 @@ const mapStateToProps = state => ({
   playbackStatus: state.playbackStatus,
   playerStatus: state.playerStatus,
   hiddenGem: state.hiddenGem,
-  user: state.user
+  user: state.user,
+  currentDevice: state.currentDevice
 })
 
 const mapDispatchToProps = dispatch => ({
 
-  playingTrack: (token, song) => dispatch(playingTrack(token, song)),
+  playingTrack: (token, song, device) => dispatch(playingTrack(token, song, device)),
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
   startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
   fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),

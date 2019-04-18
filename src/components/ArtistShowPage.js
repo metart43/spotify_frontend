@@ -78,7 +78,7 @@ render(){
       renderItem={item => (
         <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
           onClick={() =>
-            {this.props.playingTrackFromGemItem(this.props.token, item);
+            {this.props.playingTrackFromGemItem(this.props.token, item, this.props.currentDevice);
             this.props.startPlayback(this.props.playbackStatus);
             setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}
         }></Button>,
@@ -125,7 +125,7 @@ render(){
       cover={<img alt="example" src={album.images[0].url} />}
        className='playlistCard'
        actions={[<Button size='small' shape='circle' icon='play-circle'
-       onClick={() => {this.props.playingPlaylist(this.props.token, album);
+       onClick={() => {this.props.playingPlaylist(this.props.token, album, this.props.currentDevice);
        this.props.startPlayback(this.props.playbackStatus);
        setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}>
      </Button>]}></Card>
@@ -144,18 +144,19 @@ const mapStateToProps = state => ({
   top5Songs: state.top5Songs,
   playbackStatus: state.playbackStatus,
   similiarArtists: state.similiarArtists,
-  artistAlbums: state.artistAlbums
+  artistAlbums: state.artistAlbums,
+  currentDevice: state.currentDevice
 })
 
 const mapDispatchToProps = dispatch => ({
   getTopSongs: (token, artistId) => dispatch(getTopSongs(token, artistId)),
-  playingTrackFromGemItem: (token, song) => dispatch(playingTrackFromGemItem(token, song)),
+  playingTrackFromGemItem: (token, song, device) => dispatch(playingTrackFromGemItem(token, song, device)),
   startPlayback: (playbackStatus) => dispatch(startPlayback(playbackStatus)),
   fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
   getSimiliarArtist: (token, artistId) => dispatch(getSimiliarArtist(token, artistId)),
   fetchArtist: (token, artistId) => dispatch(fetchArtist(token, artistId)),
   addSongToPile: (user, gem, song) => dispatch(addSongToPile(user, gem, song)),
-  playingPlaylist: (token, album) => dispatch(playingPlaylist(token, album))
+  playingPlaylist: (token, album, device) => dispatch(playingPlaylist(token, album, device))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistShowPage)

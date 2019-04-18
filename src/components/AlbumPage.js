@@ -22,7 +22,7 @@ class AlbumPage extends React.Component {
         cover={<img alt="example" src={album.images[0].url} />}
          className='playlistCard'
          actions={[<Button size='small' shape='circle' icon='play-circle'
-         onClick={() => {this.props.playingPlaylist(this.props.token, album);
+         onClick={() => {this.props.playingPlaylist(this.props.token, album, this.props.currentDevice);
          this.props.startPlayback(this.props.playbackStatus);
          setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}>
        </Button>]}> </Card>
@@ -36,6 +36,7 @@ class AlbumPage extends React.Component {
 const mapStateToProps = state => ({
   token: state.token,
   artistAlbums: state.artistAlbums,
+  currentDevice: state.currentDevice
 })
 
 const mapDispatchToProps = dispatch => {
