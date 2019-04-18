@@ -12,6 +12,7 @@ class PlaylistContainer extends React.Component {
     <React.Fragment>
       <Modal visible={this.props.playlistModalStatus}
         width={1000}
+        onCancel={() => this.props.deactivatePlaylistModal(this.props.playlistModalStatus)}
         footer={[
             <Button key="back" onClick={() => this.props.deactivatePlaylistModal(this.props.playlistModalStatus)}>Ok</Button>
           ]}>
