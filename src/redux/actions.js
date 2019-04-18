@@ -62,8 +62,8 @@ function setAvaliableDevices(devices){
   return {type: 'USER_DEVICES', devices}
 }
 
-function setCurrentDevice(){
-  return {type: 'CURRENT_DEVICE', device : localStorage.getItem('_spharmony_device_id')}
+function setCurrentDevice(deviceId){
+  return {type: 'CURRENT_DEVICE', device : deviceId}
 }
 
 function changeCurrentDevice(device){
@@ -105,7 +105,7 @@ function settingUser(token){
 function fetchingPlaylist(token) {
   spotifyApi.setAccessToken(token)
   return (dispatch) => {
-    spotifyApi.getUserPlaylists()
+    spotifyApi.getUserPlaylists('1199230738')
   .then(function(playlists) {
     console.log('User playlists', playlists)
     dispatch(fetchedPLaylist(playlists))
@@ -284,7 +284,8 @@ function getAvaliableDevicesRedux(token, user){
      "Authorization" : `Bearer ${token}`}
    })
    .then(res => res.json())
-   .then(data => {data.error ? console.log('error') : dispatch(setAvaliableDevices(data.devices))})
+   .then(data => {data.error ? console.log('error') : dispatch(setAvaliableDevices(data.devices))
+                                                      dispatch(setCurrentDevice(data.devices[0].id))})
  }
 }
 
