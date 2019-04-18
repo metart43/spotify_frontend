@@ -30,6 +30,7 @@ componentDidMount(){
     return
   } else {
     this.props.accessingToken(hashParams.access_token)
+    localStorage.setItem('token', hashParams.access_token)
     this.props.fetchingPlaylist(hashParams.access_token)
     this.props.settingUser(hashParams.access_token)
 
