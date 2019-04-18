@@ -13,7 +13,7 @@ class PlaylistContainer extends React.Component {
       <Modal visible={this.props.playlistModalStatus}
         width={1000}
         footer={[
-            <Button key="back" onClick={() => this.props.deactivatePlaylistModal(this.props.playlistModalStatus)}>Enough!</Button>
+            <Button key="back" onClick={() => this.props.deactivatePlaylistModal(this.props.playlistModalStatus)}>Ok</Button>
           ]}>
       <Row type="flex" justify="space-around" align="middle">
         <Col span={4}>

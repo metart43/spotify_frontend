@@ -19,7 +19,7 @@ const WelcomePage = (props) => {
         <br/>
         All playlist are currated by me and and some of my other friends who are musicians.
         <br/>
-        Feel free to make your own <Text mark>Pile</Text> and store all the Hidden Gems that you find here!
+        Feel free to make your own Pileand store all the Hidden Gems that you find here!
         <br/>
         <NavLink to='/playlists'>Take me there!</NavLink>
       </Text>

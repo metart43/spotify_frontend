@@ -284,8 +284,14 @@ function getAvaliableDevicesRedux(token, user){
      "Authorization" : `Bearer ${token}`}
    })
    .then(res => res.json())
-   .then(data => {data.error ? console.log('error') : dispatch(setAvaliableDevices(data.devices))
-                                                      dispatch(setCurrentDevice(data.devices[0].id))})
+   .then(data => {
+     if (data.devices.length === 0) {
+       console.log('error')
+     } else {
+       dispatch(setAvaliableDevices(data.devices))
+       dispatch(setCurrentDevice(data.devices[0].id))
+     }
+   })
  }
 }
 
