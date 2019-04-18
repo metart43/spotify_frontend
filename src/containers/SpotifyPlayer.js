@@ -10,7 +10,8 @@ import {
   playNext,
   playPrevious,
   playResume,
-  getAvaliableDevices} from '../redux/actions'
+  getAvaliableDevices,
+  transferPlayback} from '../redux/actions'
 
 const { Footer } = Layout
 const { Text } = Typography
@@ -38,16 +39,6 @@ class SpotifyPlayer extends Component {
         devices: data.devices}))
     }
 
-    transferPlayback(token, deviceId){
-      fetch('https://api.spotify.com/v1/me/player',{
-        method: 'PUT',
-        headers: {"Accept" : "application/json",
-        "Content-Type" : "application/json",
-        "Authorization" : `Bearer ${token}`},
-        body: JSON.stringify({"device_ids": [`${deviceId}`]})
-      })
-      .then(res => console.log(res))
-    }
 
   render(){
     return (
@@ -79,7 +70,7 @@ class SpotifyPlayer extends Component {
         </Col>
         <Col span={2}>
           <Dropdown placement="topCenter" onFocus={() => this.getAvaliableDevices(this.props.token, this.props.user)} overlay={<Menu>
-            {this.state.devices.map(device => <Menu.Item onClick={() => this.transferPlayback(this.props.token, device.id)}>{device.name}</Menu.Item> )}
+            {this.state.devices.map(device => <Menu.Item onClick={() => this.props.transferPlayback(this.props.token, device.id)}>{device.name}</Menu.Item> )}
           </Menu>}>
           <Button id={"deviceButton"} shape={'circle'} size={'small'} icon={"sync"}/>
           </Dropdown>
@@ -106,7 +97,8 @@ const mapDispatchToProps = dispatch => ({
   startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
   playNext: (token, device) => dispatch(playNext(token, device)),
   playPrevious: (token, device) => dispatch(playPrevious(token, device)),
-  playResume: (token, device) => dispatch(playResume(token, device))
+  playResume: (token, device) => dispatch(playResume(token, device)),
+  transferPlayback: (token, device) => dispatch(transferPlayback(token, device))
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(SpotifyPlayer)

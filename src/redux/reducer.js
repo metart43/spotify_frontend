@@ -176,6 +176,8 @@ const currentDeviceReducer = (state = null, action) => {
   switch (action.type) {
     case "CURRENT_DEVICE":
     return action.device
+    case "CHANGE_CURRENT_DEVICE":
+    return action.device
     default:
     return state
   }

@@ -66,6 +66,10 @@ function setCurrentDevice(){
   return {type: 'CURRENT_DEVICE', device : localStorage.getItem('_spharmony_device_id')}
 }
 
+function changeCurrentDevice(device){
+  return {type: 'CHANGE_CURRENT_DEVICE', device}
+}
+
 function logoutUser(){
   return {type: 'LOG_OUT_USER'}
 }
@@ -284,6 +288,19 @@ function getAvaliableDevicesRedux(token, user){
  }
 }
 
+function transferPlayback(token, deviceId){
+  return (dispatch) => {
+    fetch('https://api.spotify.com/v1/me/player',{
+    method: 'PUT',
+    headers: {"Accept" : "application/json",
+    "Content-Type" : "application/json",
+    "Authorization" : `Bearer ${token}`},
+    body: JSON.stringify({"device_ids": [`${deviceId}`]})
+  })
+  .then(dispatch(changeCurrentDevice(deviceId)))
+  }
+}
+
 
 
 export {accessingToken,
@@ -307,4 +324,5 @@ export {accessingToken,
   getSimiliarArtist,
   getAvaliableDevicesRedux,
   logoutUser,
-  setCurrentDevice}
+  setCurrentDevice,
+  transferPlayback}
