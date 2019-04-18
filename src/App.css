@@ -37,6 +37,14 @@
   border-bottom: 0px;
 }
 
+#welcomePage{
+  text-align: center;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 #deleteButton{
     margin-left: 10px;
     position: absolute;
@@ -47,15 +55,10 @@
   background-color: white;
 }
 
-
 .playerThumbnail{
   margin-top: 7px;
   height: 50px;
   width: 50px;
-}
-
-#playerBottomRow{
-  margin-block-end: 20px;
 }
 
 #hiddenGem{
@@ -71,8 +74,5 @@
 }
 
 #deviceButton {
-  margin-top: 10px;
-}
-.ant-list-empty-text{
-  margin-left: -400px;
+  margin-top: 15px;
 }
