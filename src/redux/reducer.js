@@ -4,6 +4,8 @@ const userReducer = (state = null, action) => {
   switch(action.type) {
     case "USER_PROFILE":
     return action.user
+    case "LOG_OUT_USER":
+    return null
     default:
     return state
   }

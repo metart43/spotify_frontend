@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, Layout, Menu, Typography, message} from 'antd'
+import {Button, Layout, Menu, Typography, message, Dropdown, Icon} from 'antd'
+import {logoutUser} from '../redux/actions'
 import {createHiddenGem} from '../redux/backendActions'
 import {togglePileAction} from '../redux/toggleActions'
 import {connect} from 'react-redux'
@@ -28,7 +29,19 @@ const NavBar = (props) => {
       <Title level={2} id={'title'}>Hidden Gem</Title>
       </NavLink>
         </Menu.Item>
-      <Menu.Item style={{float: "right"}}>  {props.user? <Text type="secondary"> <strong> {props.user.display_name} </strong></Text> : <Button type="primary" ><a href='http://localhost:3000/api/v1/login'> Sign In <i className="fas fa-headphones-alt"> </i> </a></Button>}
+      <Menu.Item style={{float: "right"}}>  {props.user?
+        <Dropdown overlay={<Menu>
+    <Menu.Item key="0">
+      <NavLink onClick={() => this.props.logoutUser()}to='/'>Log out</NavLink>
+    </Menu.Item>
+  </Menu>} trigger={['click']}>
+      <Text type="secondary">
+      <strong>
+      {props.user.display_name}
+    </strong> <Icon type="down" />
+      </Text>
+  </Dropdown>
+ : <Button type="primary" ><a href='http://localhost:3000/api/v1/login'> Sign In <i className="fas fa-headphones-alt"> </i> </a></Button>}
       </Menu.Item>
       <Menu.Item style={{float: "right"}}>
         {props.hiddenGem ? <Button onClick={() => {props.togglePileAction(props.pileToggleStatus)}}> {props.pileToggleStatus ? 'Hide': 'Show'}</Button> :
@@ -49,7 +62,8 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
     createHiddenGem: (props, status) => dispatch(createHiddenGem(props, status)),
-    togglePileAction: (status) => dispatch(togglePileAction(status))
+    togglePileAction: (status) => dispatch(togglePileAction(status)),
+    logoutUser: () => dispatch(logoutUser())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar)

@@ -62,6 +62,10 @@ function setAvaliableDevices(devices){
   return {type: 'USER_DEVICES', devices}
 }
 
+function logoutUser(){
+  return {type: 'LOG_OUT_USER'}
+}
+
 function setArtistsAlbums(albums){
   return {type: "ARTIST_ALBUMS", albums}
 }
@@ -298,4 +302,5 @@ export {accessingToken,
   fetchArtist,
   getTopSongs,
   getSimiliarArtist,
-  getAvaliableDevicesRedux}
+  getAvaliableDevicesRedux,
+  logoutUser}
