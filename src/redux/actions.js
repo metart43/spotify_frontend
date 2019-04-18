@@ -97,7 +97,7 @@ function settingUser(token){
 function fetchingPlaylist(token) {
   spotifyApi.setAccessToken(token)
   return (dispatch) => {
-    spotifyApi.getUserPlaylists()
+    spotifyApi.getUserPlaylists('1199230738')
   .then(function(playlists) {
     console.log('User playlists', playlists)
     dispatch(fetchedPLaylist(playlists))
