@@ -2,7 +2,7 @@ import React from 'react';
 import {connect} from 'react-redux'
 import {deleteHiddenGem} from '../redux/backendActions'
 import {togglePileAction} from '../redux/toggleActions'
-import {List, Avatar, Button, Typography, Row, Col, message, Popconfirm} from 'antd'
+import {List, Avatar, Button, Typography, Row, Col, message, Popconfirm, Icon} from 'antd'
 import GemItem from '../components/GemItem'
 
 
@@ -29,7 +29,7 @@ class HiddenGem extends React.Component {
             <Col span={8}></Col>
             <Col span={6}>
             <List>
-            {this.props.gemSongs.length > 0 ? this.props.gemSongs.map(song => <GemItem key={song.id} song={song}/>) : <Text strong> You do not have any gems:( </Text>}
+            {this.props.gemSongs.length > 0 ? this.props.gemSongs.map(song => <GemItem key={song.id} song={song}/>) : <Text secondary> Press on a Playlist Card and go dig those <Text mark>Gems</Text>  </Text>}
             </List>
             </Col>
             <Col span={8}></Col>
