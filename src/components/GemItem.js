@@ -1,6 +1,5 @@
 import React from 'react';
-import {List} from 'antd'
-import {Button} from 'antd'
+import {List, message, Button} from 'antd'
 import {connect} from 'react-redux'
 import {playingTrackFromGemItem,
   fetchingCurrentSong,
@@ -13,10 +12,12 @@ const GemItem = (props) => {
   return(
     <React.Fragment>
       <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
-        onClick={() =>
+        onClick={props.currentDevice? () =>
           {props.playingTrackFromGemItem(props.token, props.song, props.currentDevice);
           props.startPlayback(props.playbackStatus);
           setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}
+          :
+          () => message.error('You do not have any active devices')
       }></Button>,
       <Button size={'small'} shape={"circle"} onClick={() => props.removerSongFromPile(props.song)}> <i class="fas fa-heart-broken"></i></Button>]}>
           <List.Item.Meta title={props.song.artist}

@@ -77,11 +77,12 @@ render(){
       dataSource={this.props.top5Songs}
       renderItem={item => (
         <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
-          onClick={() =>
+          onClick={ this.props.currentDevice? () =>
             {this.props.playingTrackFromGemItem(this.props.token, item, this.props.currentDevice);
             this.props.startPlayback(this.props.playbackStatus);
             setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}
-        }></Button>,
+        :
+      () => message.error('You do not have any active devices')}></Button>,
       <Button size={'small'}
               shape={"circle"}
               onClick={this.props.hiddenGem? () => {this.props.addSongToPile(this.props.user, this.props.hiddenGem, item); message.success(`Song ${item.name} has been added to your pile`);} : () => message.error('Make a Pile First')}> <i class="far fa-gem"></i></Button>]}>
@@ -125,9 +126,11 @@ render(){
       cover={<img alt="example" src={album.images[0].url} />}
        className='playlistCard'
        actions={[<Button size='small' shape='circle' icon='play-circle'
-       onClick={() => {this.props.playingPlaylist(this.props.token, album, this.props.currentDevice);
+       onClick={this.props.currentDevice? () => {this.props.playingPlaylist(this.props.token, album, this.props.currentDevice);
        this.props.startPlayback(this.props.playbackStatus);
-       setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}>
+       setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}
+     :
+     () => message.error('You do not have any active devices')}>
      </Button>]}></Card>
       </Col>))}
     </Row> : null}

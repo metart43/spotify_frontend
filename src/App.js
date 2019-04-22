@@ -28,6 +28,7 @@ componentDidMount(){
   if (hashParams.access_token === undefined){
     return
   } else {
+    localStorage.setItem('token', hashParams.access_token)
     this.props.accessingToken(hashParams.access_token)
     this.props.fetchingPlaylist(hashParams.access_token)
     this.props.settingUser(hashParams.access_token)

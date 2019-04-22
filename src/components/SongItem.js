@@ -14,10 +14,12 @@ const SongItem = (props) => {
   return(
     <React.Fragment>
       <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
-          onClick={() =>
-            {props.playingTrack(props.token, props.song, props.currentDevice);
+          onClick={props.currentDevice? () =>
+            {props.playingTrack(props.token, props.song, props.currentDevice) ;
             props.startPlayback(props.playbackStatus);
             setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}
+          :
+        () => message.error('You do not have any active devices')
         }></Button>,
         <Button size={'small'}
                 shape={"circle"}

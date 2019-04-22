@@ -8,7 +8,7 @@ import {fetchingPlaylist,
         startPlayback,
         fetchingCurrentSong} from '../redux/actions'
 import {showPlaylistModal} from '../redux/modalActions'
-import {Card, Row, Col, Avatar, Icon, Button} from 'antd'
+import {Card, Row, Col, Avatar, Icon, Button, message} from 'antd'
 
 const { Meta } = Card
 
@@ -28,9 +28,11 @@ class PlaylistIndex extends React.Component {
                 <i className="far fa-eye"></i>
                 </Button>,
                 <Button size='small' shape='circle' icon='play-circle'
-                onClick={() => {this.props.playingPlaylist(this.props.token, pl, this.props.currentDevice);
+                onClick={this.props.currentDevice ?() => {this.props.playingPlaylist(this.props.token, pl, this.props.currentDevice);
                 this.props.startPlayback(this.props.playbackStatus);
-                setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}}>
+                setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}
+              :
+            () => message.error('You do not have any active devices')}>
                 </Button>]}><PlaylistCard key={pl.id} pl={pl}/></Card></Col>))}
       </Row>
   )
