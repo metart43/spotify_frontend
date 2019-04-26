@@ -23,10 +23,6 @@ function setUser(user){
   return {type:"USER_PROFILE", user}
 }
 
-function setUserDevices(devices){
-  return {type: "USER_DEVICES", devices}
-}
-
 function getCurrentSong(song) {
   return {type:"CURRENT_SONG", song}
 }
@@ -37,6 +33,10 @@ function startPlayback(playerStatus) {
 
 function pausePlayback(playerStatus) {
   return {type:"PAUSE_PLAYBACK", playerStatus}
+}
+
+function searchAction(text){
+  return {type:"CHANGE_SEARCH_TEXT", text}
 }
 
 function startPlayerActivity(status){
@@ -235,7 +235,7 @@ function fetchArtistAlbums(token, artistId){
       "Authorization" : `Bearer ${token}`}
     })
     .then(res => res.json())
-    .then(data => dispatch(setArtistsAlbums(data.items.filter(item => item.album_group == "album").slice(0,5))))
+    .then(data => dispatch(setArtistsAlbums(data.items.filter(item => item.album_group === "album").slice(0,5))))
   }
 }
 
@@ -308,8 +308,6 @@ function transferPlayback(token, deviceId){
   }
 }
 
-
-
 export {accessingToken,
   fetchingPlaylist,
   selectPlaylist,
@@ -332,4 +330,5 @@ export {accessingToken,
   getAvaliableDevicesRedux,
   logoutUser,
   setCurrentDevice,
-  transferPlayback}
+  transferPlayback,
+  searchAction}

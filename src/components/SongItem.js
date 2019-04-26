@@ -7,7 +7,7 @@ import {playingTrack,
   startPlayback,
   startPlayerActivity,
   fetchArtist} from '../redux/actions'
-import { NavLink, Redirect} from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {addSongToPile} from '../redux/backendActions'
 
 const SongItem = (props) => {

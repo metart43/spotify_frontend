@@ -8,9 +8,7 @@ import {fetchingPlaylist,
         startPlayback,
         fetchingCurrentSong} from '../redux/actions'
 import {showPlaylistModal} from '../redux/modalActions'
-import {Card, Row, Col, Avatar, Icon, Button, message} from 'antd'
-
-const { Meta } = Card
+import {Card, Row, Col, Button, message} from 'antd'
 
 class PlaylistIndex extends React.Component {
 

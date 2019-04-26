@@ -9,7 +9,6 @@ import {getTopSongs,
         playingPlaylist} from '../redux/actions'
 import {addSongToPile} from '../redux/backendActions'
 import {Card, Row, Modal, Button, List, Avatar, Col, Layout, message} from 'antd'
-import AlbumPage from './AlbumPage'
 
 const {Meta} = Card
 

@@ -183,6 +183,14 @@ const currentDeviceReducer = (state = null, action) => {
   }
 }
 
+const seacrhTextReducer = (state='', action) => {
+  switch (action.type) {
+    case 'CHANGE_SEARCH_TEXT':
+    return action.text
+    default:
+    return state
+  }
+}
 const rootReducer = combineReducers({
   playlists: playlistsReducer,
   token: authReducer,
@@ -201,7 +209,8 @@ const rootReducer = combineReducers({
   similiarArtists: similiarArtistReducer,
   devicesRedux: userDevicesReducer,
   artistAlbums: artistAlbumsReducer,
-  currentDevice: currentDeviceReducer
+  currentDevice: currentDeviceReducer,
+  searchText: seacrhTextReducer
 });
 
 export default rootReducer;

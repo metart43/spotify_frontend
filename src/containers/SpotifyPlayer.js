@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Col, Row, List, Layout, Typography, Dropdown, Icon, Menu} from 'antd'
+import {Button, Col, Row, Typography, Dropdown, Menu} from 'antd'
 import {connect} from 'react-redux'
 import {
   fetchingCurrentSong,
@@ -13,7 +13,6 @@ import {
   getAvaliableDevicesRedux,
   transferPlayback} from '../redux/actions'
 
-const { Footer } = Layout
 const { Text } = Typography
 
 
@@ -26,7 +25,7 @@ class SpotifyPlayer extends Component {
     return (
     <div id={"spotifyPlayer"}>
     <Row>
-      <Col span={2} offset={2}>{this.props.currentSong? <img className={'playerThumbnail'} src={this.props.currentSong.item.album.images[0].url}></img> : null}</Col>
+      <Col span={2} offset={2}>{this.props.currentSong? <img alt='playerThumbnail' className={'playerThumbnail'} src={this.props.currentSong.item.album.images[0].url}></img> : null}</Col>
     <Col span={6}>
       <Text strong><p>{this.props.currentSong? `${this.props.currentSong.item.artists[0].name}`: null}</p></Text>
       <p><Text secondary>{this.props.currentSong? this.props.currentSong.item.name : null}</Text></p>

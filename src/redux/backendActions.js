@@ -50,7 +50,6 @@ function removerSongFromPile(song){
 }
 
 function addSongToPile(user, gem, song){
-  debugger
   return (dispatch) => {
     fetch('http://localhost:3000/songs', {
       method: 'POST',

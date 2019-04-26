@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import {Modal} from 'antd'
 
 const PlaylistShowCard = (props) => {
   return (
