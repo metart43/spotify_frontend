@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {deleteHiddenGem} from '../redux/backendActions'
 import {searchAction} from '../redux/actions'
 import {togglePileAction} from '../redux/toggleActions'
-import {List, Avatar, Button, Typography, Row, Col, message, Popconfirm, Icon, Input} from 'antd'
+import {List, Avatar, Button, Typography, Row, Col, message, Popconfirm, Icon, Input, Modal} from 'antd'
 import GemItem from '../components/GemItem'
 
 
@@ -12,6 +12,7 @@ const Search = Input.Search
 
 
 class HiddenGem extends React.Component {
+
 
   render(){
     return(
