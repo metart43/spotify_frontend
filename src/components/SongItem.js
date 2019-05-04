@@ -11,6 +11,7 @@ import { NavLink } from 'react-router-dom';
 import {addSongToPile} from '../redux/backendActions'
 
 const SongItem = (props) => {
+  debugger
   return(
     <React.Fragment>
       <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
@@ -31,7 +32,7 @@ const SongItem = (props) => {
         </Button>
                 </NavLink>]}>
         <List.Item.Meta
-        avatar={<Avatar src={props.song.track.album.images[0].url} />}
+        avatar={props.img === undefined ? <Avatar src={props.song.track.album.images[0].url} /> : <Avatar src={props.img} />}
         title={props.song.track.artists[0].name}
         description={props.song.track.name}
         />

@@ -26,7 +26,7 @@ const NavBar = (props) => {
       <Menu mode="horizontal">
       <Menu.Item>
         <NavLink to='/playlists'>
-      <Title level={2} id={'title'}>Hidden Gem</Title>
+      <Title level={2} id={'title'}>Hidden Gem <i class="fas fa-gem"></i></Title>
       </NavLink>
         </Menu.Item>
       <Menu.Item style={{float: "right"}}>  {props.user?

@@ -78,6 +78,10 @@ function setArtistsAlbums(albums){
   return {type: "ARTIST_ALBUMS", albums}
 }
 
+function fetchedAlbum(album){
+  return {type: 'FETCHED_ALBUM', album}
+}
+
 function fetchingUserInfo(user) {
   return (dispatch) => {
     fetch(`http://localhost:3000/api/v1/users/${user.id}`)
@@ -308,6 +312,18 @@ function transferPlayback(token, deviceId){
   }
 }
 
+function fetchingAlbum(id, token){
+  return (dispatch) => {
+    fetch(`https://api.spotify.com/v1/albums/${id}`,{
+      headers: {"Accept" : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`}
+    })
+    .then(res => res.json())
+    .then(album => dispatch(fetchedAlbum(album)))
+  }
+}
+
 export {accessingToken,
   fetchingPlaylist,
   selectPlaylist,
@@ -331,4 +347,5 @@ export {accessingToken,
   logoutUser,
   setCurrentDevice,
   transferPlayback,
-  searchAction}
+  searchAction,
+  fetchingAlbum}

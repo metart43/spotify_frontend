@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux'
 import SongItem from '../components/SongItem'
 import { List } from 'antd'
 
@@ -7,14 +6,10 @@ class SongsList extends React.Component {
   render(){
     return(
       <List bordered = {true}>
-          {this.props.songs.items.map(song => <SongItem key={song.id} song={song}/>)}
+          {this.props.songs.items.map(song => <SongItem img={this.props.img} key={song.id} song={song}/>)}
       </List>
     )
   }
 }
 
-const mapStateToProps = state => ({
-  songs: state.songs
-})
-
-export default connect(mapStateToProps)(SongsList)
+export default SongsList

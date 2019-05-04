@@ -6,9 +6,11 @@ import {getTopSongs,
         startPlayback,
         getSimiliarArtist,
         fetchArtist,
-        playingPlaylist} from '../redux/actions'
+        playingPlaylist,
+        fetchingAlbum} from '../redux/actions'
 import {addSongToPile} from '../redux/backendActions'
 import {Card, Row, Modal, Button, List, Avatar, Col, Layout, message} from 'antd'
+import AlbumContainer from '../containers/AlbumContainer'
 
 const {Meta} = Card
 
@@ -18,46 +20,62 @@ class ArtistShowPage extends React.Component {
     super()
     this.state = {
       visible: false,
-      visibleSimiliar: false
+      visibleSimiliar: false,
+      visibleAlbum: false
   }
 }
 
-
-  showModal = () => {
-    setTimeout(() => {
-    this.setState({
-      visible: true,
-    })}, 500)
+  showModal = (e) => {
+    switch (e.target.innerText) {
+      case "Similiar":
+      setTimeout(() => {
+        this.setState({
+          visibleSimiliar: true,
+        })}, 500)
+        break;
+      case 'Top 5':
+      setTimeout(() => {
+        this.setState({
+          visible: true,
+        })}, 500)
+        break;
+      case "":
+      setTimeout(() => {
+        this.setState({
+          visibleAlbum: true,
+        })}, 500)
+        break;
+    }
   }
 
-  showSimiliarModal = () => {
-    setTimeout(() => {
-    this.setState({
-      visibleSimiliar: true,
-    })}, 500)
-  }
-
-  handleCancel = () => {
+  handleCancel = (e) => {
       this.setState({ visible: false });
     }
 
   handleSimiliarOk = (e) => {
     this.setState({
       visibleSimiliar: false,
-    });
+    })
   }
+
+  handleAlbumOk = () => {
+    this.setState({
+      visibleAlbum: false
+    })
+  }
+
 
 render(){
   return(
-    <Layout style={{height: '100vh', background: 'white'}}>
+    <Layout style={{height: '120vh', background: 'white'}}>
     <Row type='flex' justify='center' align="middle">
       <Col span={4}>
     <Card size='small' cover={<img alt='artistImage' src={this.props.artist.images[1].url} />}
-      actions={[<Button onClick={() => {
+      actions={[<Button onClick={(e) => {
         this.props.getTopSongs(this.props.token, this.props.artist.id);
-        this.showModal()} }>Top 5</Button>,
-        <Button onClick={() => {
-        this.showSimiliarModal();
+        this.showModal(e)} }>Top 5</Button>,
+        <Button onClick={(e) => {
+        this.showModal(e);
         this.props.getSimiliarArtist(this.props.token, this.props.artist.id)}}> Similiar</Button>]}>
     <Meta
       title={this.props.artist.name}
@@ -68,7 +86,7 @@ render(){
       visible={this.state.visible}
       onCancel={this.handleCancel}
       footer={[
-            <Button key="back" onClick={this.handleCancel}>Return</Button>
+            <Button key="back" onClick={this.handleCancel} id='Top 5'>Return</Button>
           ]}
     >
     {this.props.top5Songs? <List
@@ -97,9 +115,9 @@ render(){
       <Modal
         title="Similiar Artist"
         visible={this.state.visibleSimiliar}
-        onCancel={this.handleSimiliarOk}
+        onCancel={(e) => this.handleSimiliarOk(e)}
         footer={[
-              <Button key="back" onClick={this.handleSimiliarOk}>Return</Button>
+              <Button key="back" onClick={(e) => this.handleSimiliarOk(e)}>Return</Button>
             ]}
       >
       {this.props.similiarArtists? <List
@@ -122,7 +140,8 @@ render(){
     {this.props.artistAlbums? <Row gutter={16} id={'playListIndex'}justify="center" type='flex'>
       {this.props.artistAlbums.map((album =><Col id={'cardColumn'} key={album.id} span={4}>
       <Card hoverable size="small" title={album.name}
-      cover={<img alt="example" src={album.images[0].url} />}
+       onClick={() => this.props.fetchingAlbum(album.id, this.props.token)}
+       cover={<img alt="example" src={album.images[0].url} />}
        className='playlistCard'
        actions={[<Button size='small' shape='circle' icon='play-circle'
        onClick={this.props.currentDevice? () => {this.props.playingPlaylist(this.props.token, album, this.props.currentDevice);
@@ -130,9 +149,14 @@ render(){
        setTimeout(() => this.props.fetchingCurrentSong(this.props.token), 1000)}
      :
      () => message.error('You do not have any active devices')}>
-     </Button>]}></Card>
+   </Button>, <Button size='small' shape='circle' icon='eye' name='album' onClick={(e) => {this.props.fetchingAlbum(album.id, this.props.token); this.showModal(e)}}></Button>]}></Card>
       </Col>))}
     </Row> : null}
+    <Modal visible={this.state.visibleAlbum}
+      onCancel={this.handleAlbumOk}
+      footer={[
+            <Button key="back" onClick={this.handleAlbumOk}>Return</Button>
+          ]}><AlbumContainer/></Modal>
   </Layout>
   )
   }
@@ -158,7 +182,8 @@ const mapDispatchToProps = dispatch => ({
   getSimiliarArtist: (token, artistId) => dispatch(getSimiliarArtist(token, artistId)),
   fetchArtist: (token, artistId) => dispatch(fetchArtist(token, artistId)),
   addSongToPile: (user, gem, song) => dispatch(addSongToPile(user, gem, song)),
-  playingPlaylist: (token, album, device) => dispatch(playingPlaylist(token, album, device))
+  playingPlaylist: (token, album, device) => dispatch(playingPlaylist(token, album, device)),
+  fetchingAlbum: (id, token) => dispatch(fetchingAlbum(id, token))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(ArtistShowPage)

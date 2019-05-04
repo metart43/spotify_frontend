@@ -12,16 +12,16 @@ class PlaylistContainer extends React.Component {
     <React.Fragment>
       <Modal visible={this.props.playlistModalStatus}
         width={1000}
-        onCancel={() => this.props.deactivatePlaylistModal(this.props.playlistModalStatus)}
+        onCancel={() => this.props.deactivatePlaylistModal()}
         footer={[
-            <Button key="back" onClick={() => this.props.deactivatePlaylistModal(this.props.playlistModalStatus)}>Ok</Button>
+            <Button key="back" onClick={() => this.props.deactivatePlaylistModal()}>Ok</Button>
           ]}>
       <Row type="flex" justify="space-around" align="middle">
         <Col span={4}>
-          {this.props.playlist ? <PlaylistShowCard/> : null}
+          {this.props.playlist ? <PlaylistShowCard playlist={this.props.playlist}/> : null}
           </Col>
           <Col span={12}>
-        {this.props.songs ? <SongsList/> : null}
+        {this.props.songs ? <SongsList songs={this.props.songs}/> : null}
       </Col>
       </Row>
     </Modal>
@@ -37,7 +37,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  deactivatePlaylistModal: (status) => dispatch(deactivatePlaylistModal(status))
+  deactivatePlaylistModal: () => dispatch(deactivatePlaylistModal())
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PlaylistContainer)

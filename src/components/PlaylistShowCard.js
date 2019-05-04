@@ -1,5 +1,4 @@
 import React from 'react';
-import {connect} from 'react-redux'
 
 const PlaylistShowCard = (props) => {
   return (
@@ -10,8 +9,5 @@ const PlaylistShowCard = (props) => {
   )
 }
 
-const mapStateToProps = (state) => ({
-  playlist: state.playlist
-})
 
-export default connect(mapStateToProps)(PlaylistShowCard)
+export default PlaylistShowCard

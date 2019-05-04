@@ -166,9 +166,18 @@ const similiarArtistReducer = (state = null, action) => {
 const artistAlbumsReducer = (state = null, action) => {
   switch (action.type) {
     case "ARTIST_ALBUMS":
-      return action.albums
+    return action.albums
     default:
     return state
+  }
+}
+
+const albumReducer = (state = null, action) => {
+  switch (action.type) {
+    case "FETCHED_ALBUM":
+      return action.album
+    default:
+      return state
   }
 }
 
@@ -210,7 +219,8 @@ const rootReducer = combineReducers({
   devicesRedux: userDevicesReducer,
   artistAlbums: artistAlbumsReducer,
   currentDevice: currentDeviceReducer,
-  searchText: seacrhTextReducer
+  searchText: seacrhTextReducer,
+  album: albumReducer
 });
 
 export default rootReducer;

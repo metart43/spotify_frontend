@@ -17,6 +17,12 @@ class HiddenGem extends React.Component {
   render(){
     return(
       <React.Fragment>
+        <Modal visible={this.props.pileToggleStatus}
+          width={1000}
+          onCancel={() => this.props.togglePileAction(this.props.pileToggleStatus)}
+          footer={[
+              <Button key="back" onClick={() => this.props.togglePileAction(this.props.pileToggleStatus)}>Ok</Button>
+            ]}>
         <div id={'hiddenGem'}>
         <Row type="flex" justify="space-around" align="middle">
           <Col span={8}></Col>
@@ -36,14 +42,15 @@ class HiddenGem extends React.Component {
           </Row>
           <Row>
             <Col span={8}></Col>
-            <Col span={6}>
+            <Col span={12}>
             <List>
-            {this.props.gemSongs.length > 0 ? this.props.gemSongs.map(song => <GemItem key={song.id} song={song}/>) : <Text secondary> Press on a Playlist Card and go dig those <Text mark>Gems</Text>  </Text>}
+            {this.props.gemSongs.length > 0 ? this.props.gemSongs.map(song => <GemItem key={song.id} song={song}/>) : <Text secondary> Press on a Playlist Card and go dig those Gems </Text>}
             </List>
             </Col>
-            <Col span={8}></Col>
+            <Col span={6}></Col>
           </Row>
         </div>
+        </Modal>
       </React.Fragment>
     )
   }
@@ -60,13 +67,14 @@ const mapStateToProps = state => ({
         .toLowerCase()
         .includes(state.searchText.toLowerCase()))),
   togglePile: state.togglePile,
-  searchText: state.searchText
+  searchText: state.searchText,
+  pileToggleStatus: state.pileToggleStatus
 })
 
 const mapDispatchToProps = dispatch => ({
   deleteHiddenGem: (hiddenGem) => dispatch(deleteHiddenGem(hiddenGem)),
   togglePileAction: (status) => dispatch(togglePileAction(status)),
   searchAction: (text) => dispatch(searchAction(text))
-})
+ })
 
 export default connect(mapStateToProps, mapDispatchToProps)(HiddenGem)
