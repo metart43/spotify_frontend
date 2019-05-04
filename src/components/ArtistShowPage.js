@@ -67,7 +67,7 @@ class ArtistShowPage extends React.Component {
 
 render(){
   return(
-    <Layout style={{height: '120vh', background: 'white'}}>
+    <Layout style={{height: '150vh', background: 'white'}}>
     <Row type='flex' justify='center' align="middle">
       <Col span={4}>
     <Card size='small' cover={<img alt='artistImage' src={this.props.artist.images[1].url} />}

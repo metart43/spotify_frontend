@@ -170,6 +170,20 @@ function playingTrack(token, song, device){
   }
 }
 
+function playingTrackFromAlbum(token, song, device){
+  debugger
+  return (dispatch) => {
+    console.log("step 1")
+    fetch(`https://api.spotify.com/v1/me/player/play?device_id=${device}`,{
+      method: 'PUT',
+      headers: {Accept : "application/json",
+      "Content-Type" : "application/json",
+      "Authorization" : `Bearer ${token}`},
+      body: JSON.stringify({"uris": [`${song.uri}`]})
+    })
+  }
+}
+
 function playingTrackFromGemItem(token, song, device){
   return (dispatch) => {
     console.log("step 1")
@@ -348,4 +362,5 @@ export {accessingToken,
   setCurrentDevice,
   transferPlayback,
   searchAction,
-  fetchingAlbum}
+  fetchingAlbum,
+  playingTrackFromAlbum}

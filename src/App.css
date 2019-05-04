@@ -76,3 +76,8 @@
 #deviceButton {
   margin-top: 15px;
 }
+
+#albumImage {
+  width: 150px;
+  height: 150px;
+}

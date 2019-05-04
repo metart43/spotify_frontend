@@ -6,7 +6,8 @@ import {playingTrack,
   fetchingCurrentSong,
   startPlayback,
   startPlayerActivity,
-  fetchArtist} from '../redux/actions'
+  fetchArtist,
+  playingTrackFromAlbum} from '../redux/actions'
 import { NavLink } from 'react-router-dom';
 import {addSongToPile} from '../redux/backendActions'
 
@@ -15,8 +16,9 @@ const SongItem = (props) => {
   return(
     <React.Fragment>
       <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
-          onClick={props.currentDevice? () =>
-            {props.playingTrack(props.token, props.song, props.currentDevice) ;
+          onClick={props.currentDevice? () =>{
+            debugger
+            {props.song.uri ? props.playingTrackFromAlbum(props.token, props.song, props.currentDevice) : props.playingTrack(props.token, props.song, props.currentDevice)};
             props.startPlayback(props.playbackStatus);
             setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}
           :
@@ -24,17 +26,17 @@ const SongItem = (props) => {
         }></Button>,
         <Button size={'small'}
                 shape={"circle"}
-                onClick={props.hiddenGem? () => {props.addSongToPile(props.user, props.hiddenGem, props.song.track); message.success(`Song ${props.song.track.name} by has been added to your pile`);} : () => message.error('Make a Pile First')}>
+                onClick={props.hiddenGem? () => {props.addSongToPile(props.user, props.hiddenGem, props.song.track? props.song.track : props.song); message.success(`Song ${props.song.track ? props.song.track.name : props.song.name} by has been added to your pile`);} : () => message.error('Make a Pile First')}>
                 <i class="far fa-gem"></i>
         </Button>,
                 <NavLink to={'/artist'}>
-        <Button  size={'small'} onClick={() => props.fetchArtist(props.token, props.song.track.artists[0].id)}>more
+        <Button  size={'small'} onClick={() => props.fetchArtist(props.token, props.song.track ? props.song.track.artists[0].id : props.song.artists[0].id)}>more
         </Button>
                 </NavLink>]}>
         <List.Item.Meta
         avatar={props.img === undefined ? <Avatar src={props.song.track.album.images[0].url} /> : <Avatar src={props.img} />}
-        title={props.song.track.artists[0].name}
-        description={props.song.track.name}
+        title={props.song.track ? props.song.track.artists[0].name : props.song.artists[0].name}
+        description={props.song.track ? props.song.track.name : props.song.name}
         />
       </List.Item>
     </React.Fragment>
@@ -57,8 +59,8 @@ const mapDispatchToProps = dispatch => ({
   startPlayerActivity: (playerStatus) => dispatch(startPlayerActivity(playerStatus)),
   fetchingCurrentSong: (token) => dispatch(fetchingCurrentSong(token)),
   addSongToPile: (user, gem, song) => dispatch(addSongToPile(user, gem, song)),
-  fetchArtist: (token, artistId) => dispatch(fetchArtist(token, artistId))
-
+  fetchArtist: (token, artistId) => dispatch(fetchArtist(token, artistId)),
+  playingTrackFromAlbum: (token, song, device) => dispatch(playingTrackFromAlbum(token, song, device))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SongItem)
