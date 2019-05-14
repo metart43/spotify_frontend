@@ -5,7 +5,7 @@ import {selectPlaylist,
         fetchingCurrentSong} from '../redux/actions'
 import {showPlaylistModal} from '../redux/modalActions'
 import {connect} from 'react-redux'
-import {Button, Modal} from 'antd'
+
 
 const PlaylistCard = (props) => {
   return (

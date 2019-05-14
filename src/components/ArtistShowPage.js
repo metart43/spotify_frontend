@@ -45,6 +45,8 @@ class ArtistShowPage extends React.Component {
           visibleAlbum: true,
         })}, 500)
         break;
+        default:
+        break;
     }
   }
 
@@ -157,6 +159,9 @@ render(){
       footer={[
             <Button key="back" onClick={this.handleAlbumOk}>Return</Button>
           ]}><AlbumContainer/></Modal>
+        <Row type='flex' justify='center' align="middle">
+          <Button>More</Button>
+        </Row>
   </Layout>
   )
   }

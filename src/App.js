@@ -8,12 +8,14 @@ import SpotifyPlayer from '../src/containers/SpotifyPlayer'
 import HiddenGem from '../src/containers/HiddenGem'
 import WelcomePage from '../src/components/WelcomePage'
 import ArtistShowPage from '../src/components/ArtistShowPage'
+import SearchPage from '../src/components/SearchPage'
 import {connect} from 'react-redux'
-import {Route, Redirect, Switch} from 'react-router-dom'
+import {Route, Switch} from 'react-router-dom'
 import {accessingToken, fetchingPlaylist, settingUser, fetchingCurrentSong, getAvaliableDevicesRedux, setCurrentDevice} from '../src/redux/actions'
 import {Layout} from 'antd'
+import { withRouter } from "react-router-dom";
 
-const {Header, Content, Footer} = Layout
+const {Header, Content} = Layout
 
 class App extends Component {
 
@@ -36,7 +38,7 @@ componentDidMount(){
 }
 
   componentDidUpdate(prevProps){
-    if (prevProps.user != this.props.user ) {
+    if (prevProps.user !== this.props.user ) {
       this.props.getAvaliableDevicesRedux(this.props.token, this.props.user)
     }
   }
@@ -50,7 +52,8 @@ componentDidMount(){
           <Switch>
           {this.props.artist? <Route path='/artist' render={()=> <ArtistShowPage/>} /> : null}
           <Route path='/playlists' render={() => <PlaylistIndex />} />
-          <Route path='/' render={() => <WelcomePage />} />
+          <Route exact path='/' render={() => <WelcomePage />} />
+          <Route exact path='/search' render={() => <SearchPage />} />
           </Switch>
           <PlaylistContainer />
           </Content>
@@ -83,4 +86,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App)
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App))

@@ -1,6 +1,5 @@
 import React from 'react';
 import {connect} from 'react-redux'
-import PlaylistShowCard from '../components/PlaylistShowCard'
 import SongsList from './SongsList'
 class AlbumContainer extends React.Component {
 

@@ -32,6 +32,7 @@ const selectPlaylistReducer = (state = null, action) => {
 const authReducer = (state = null, action) => {
   switch(action.type) {
     case "ACCESSING_TOKEN":
+    localStorage.setItem('token', action.token)
     return action.token
     default:
     return state
@@ -66,7 +67,7 @@ const gemSongsReducer = (state = [], action) => {
     return state.concat([action.song])
     case 'REMOVE_SONGS_FROM_GEM':
     debugger
-    return state.filter(song => song.id != action.song.id)
+    return state.filter(song => song.id !== action.song.id)
     default:
     return state
   }
@@ -200,6 +201,16 @@ const seacrhTextReducer = (state='', action) => {
     return state
   }
 }
+
+const searchDataReducer = (state = null, action) => {
+  switch(action.type){
+    case 'SEARCH_DATA':
+    return action.data
+    default:
+    return state
+  }
+}
+
 const rootReducer = combineReducers({
   playlists: playlistsReducer,
   token: authReducer,
@@ -220,7 +231,8 @@ const rootReducer = combineReducers({
   artistAlbums: artistAlbumsReducer,
   currentDevice: currentDeviceReducer,
   searchText: seacrhTextReducer,
-  album: albumReducer
+  album: albumReducer,
+  searchData: searchDataReducer
 });
 
 export default rootReducer;

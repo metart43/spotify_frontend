@@ -27,7 +27,7 @@ class SpotifyPlayer extends Component {
     <Row>
       <Col span={2} offset={2}>{this.props.currentSong? <img alt='playerThumbnail' className={'playerThumbnail'} src={this.props.currentSong.item.album.images[0].url}></img> : null}</Col>
     <Col span={6}>
-      <Text strong><p>{this.props.currentSong? `${this.props.currentSong.item.artists[0].name}`: null}</p></Text>
+      <Text strong><p>{this.props.currentSong? this.props.currentSong.item.artists[0].name : null}</p></Text>
       <p><Text secondary>{this.props.currentSong? this.props.currentSong.item.name : null}</Text></p>
     </Col>
       <Col span={8}>
@@ -51,7 +51,7 @@ class SpotifyPlayer extends Component {
         </Col>
         <Col span={2}>
           <Dropdown placement="topCenter" onFocus={() => this.props.getAvaliableDevicesRedux(this.props.token, this.props.user)} overlay={<Menu>
-            {this.props.devicesRedux.map(device => <Menu.Item onClick={() => this.props.transferPlayback(this.props.token, device.id)}>{device.name}</Menu.Item> )}
+            {this.props.devicesRedux.map(device => <Menu.Item key={'01'} onClick={() => this.props.transferPlayback(this.props.token, device.id)}>{device.name}</Menu.Item> )}
           </Menu>}>
           <Button id={"deviceButton"} shape={'circle'} size={'small'} icon={"sync"}/>
           </Dropdown>

@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import {Layout, Typography, Row} from 'antd'
 import {NavLink} from 'react-router-dom'
 
-const {Text, Title} = Typography
+const {Text} = Typography
 
 const WelcomePage = (props) => {
   console.log(props.user);

@@ -12,12 +12,10 @@ import { NavLink } from 'react-router-dom';
 import {addSongToPile} from '../redux/backendActions'
 
 const SongItem = (props) => {
-  debugger
   return(
     <React.Fragment>
       <List.Item actions={[<Button size={'small'} shape={"circle"} icon={"play-circle"}
           onClick={props.currentDevice? () =>{
-            debugger
             {props.song.uri ? props.playingTrackFromAlbum(props.token, props.song, props.currentDevice) : props.playingTrack(props.token, props.song, props.currentDevice)};
             props.startPlayback(props.playbackStatus);
             setTimeout(() => props.fetchingCurrentSong(props.token), 1000)}
@@ -27,7 +25,7 @@ const SongItem = (props) => {
         <Button size={'small'}
                 shape={"circle"}
                 onClick={props.hiddenGem? () => {props.addSongToPile(props.user, props.hiddenGem, props.song.track? props.song.track : props.song); message.success(`Song ${props.song.track ? props.song.track.name : props.song.name} by has been added to your pile`);} : () => message.error('Make a Pile First')}>
-                <i class="far fa-gem"></i>
+                <i className="far fa-gem"></i>
         </Button>,
                 <NavLink to={'/artist'}>
         <Button  size={'small'} onClick={() => props.fetchArtist(props.token, props.song.track ? props.song.track.artists[0].id : props.song.artists[0].id)}>more

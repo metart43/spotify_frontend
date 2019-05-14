@@ -82,6 +82,10 @@ function fetchedAlbum(album){
   return {type: 'FETCHED_ALBUM', album}
 }
 
+function setSearchSpotifyData(data){
+  return {type: 'SEARCH_DATA', data}
+}
+
 function fetchingUserInfo(user) {
   return (dispatch) => {
     fetch(`http://localhost:3000/api/v1/users/${user.id}`)
@@ -245,7 +249,7 @@ function playPrevious(token, device){
   }
 }
 
-function fetchArtistAlbums(token, artistId){
+function fetchArtistAlbums(token, artistId, index){
   return (dispatch) => {
     fetch(`	https://api.spotify.com/v1/artists/${artistId}/albums`, {
       headers: {"Accept" : "application/json",
@@ -253,7 +257,7 @@ function fetchArtistAlbums(token, artistId){
       "Authorization" : `Bearer ${token}`}
     })
     .then(res => res.json())
-    .then(data => dispatch(setArtistsAlbums(data.items.filter(item => item.album_group === "album").slice(0,5))))
+    .then(data => dispatch(setArtistsAlbums(data.items.filter(item => item.album_group === "album").slice(index ? (index-data.items.lengths,5) : 0,5))))
   }
 }
 
@@ -338,6 +342,18 @@ function fetchingAlbum(id, token){
   }
 }
 
+function searchFetch(text, token, history){
+  return (dispatch) => {
+    fetch(`https://api.spotify.com/v1/search?q=${text}&type=track%2Cartist&market=US&limit=10&offset=5`,{
+        headers: {"Accept" : "application/json",
+        "Content-Type" : "application/json",
+        "Authorization" : `Bearer ${token}`}
+      })
+      .then(res => res.json())
+      .then(data => dispatch(setSearchSpotifyData(data)), history.push('/search'))
+  }
+}
+
 export {accessingToken,
   fetchingPlaylist,
   selectPlaylist,
@@ -363,4 +379,5 @@ export {accessingToken,
   transferPlayback,
   searchAction,
   fetchingAlbum,
-  playingTrackFromAlbum}
+  playingTrackFromAlbum,
+  searchFetch}
